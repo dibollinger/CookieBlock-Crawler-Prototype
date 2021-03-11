@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Additional
+.idea
+geckodriver.log
+database/cookiedat.sqlite
+scrape_out_*_*

@@ -1,0 +1,39 @@
+Targeting Cookies
+Social Media Cookies
+Performance Cookies
+Strictly Necessary Cookies
+Functional Cookies
+Marketing Cookies
+Targeting (1st Party)
+Targeting (3rd Party)
+Advertising Cookies
+Select personalized content
+Deliver ads or content
+Share data with 3rd party vendor
+Social Media - General
+Ads - General
+Performance - Third Party Vendor
+Storage and Access - Third Party Vendor
+Advertising - Third Party Vendor
+Social Media - Third Party Vendor
+Performance - General
+Subcategory 2- General
+Personalization - Third Party Vendor
+Personalization - General
+Storage and Access - General
+Necessary Cookies
+Performance (or Analytics) Cookies
+Functionality Cookies
+Functional cookies
+Strictly necessary cookies
+Performance cookies
+Targeting cookies
+Strictly Necessary
+First Party Performance
+First Party Targeting
+Third Party
+Google & IAB TCF 2 Purposes of Processing
+legacy video analytics 3
+Necessary
+Performance
+Marketing

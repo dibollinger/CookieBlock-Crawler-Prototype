@@ -1,0 +1,174 @@
+
+======= OneTrust Cookie Consent =======
+
+One of the domains used by OneTrust Cookie Consent Provider is:
+
+https://cdn.cookielaw.org/
+
+Additional domains exist, but let's focus on this one.
+
+* No consistent layout, depends entirely on website owner.
+* Cookie Consent popup may not even appear, but the library may still be used.
+* The category names are totally variable and may even depend on region or chosen language.
+
+
+= Category Data =
+
+The Cookie Categories for this consent library, if present, are stored inside a javascript object.
+
+It is generally encountered in two variants:
+   1. Downloaded as a self-contained file json file directly over the CDN.
+   2. Inlined inside a javascript function.
+
+The objects sourced from these variants are similar but their structure differs enough that they need to be handled separately.
+
+These variants are accessed as follows:
+
+----------------------------------------
+--- 1. Variant: Self-contained JSON ----
+----------------------------------------
+
+* Example domains using this format:
+   > https://www.metabomb.net/
+   > https://www.maytag.com/
+
+* The json data can be retrieved as follows:
+
+  1. Inside 'index.html'  there will be a script tag that contains the following attributes:
+
+    <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="<DATA_DOMAIN_ID>"></script>
+
+  2. The data-domain-script attribute needs to be retrieved. <DOMAIN_ID> will hereby be a hex string of the following UUID format:
+
+  <DATA_DOMAIN_ID> = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+
+  Example: c35c6f7d-193e-4894-98df-457010b6e404
+
+  3. Then, to retrieve the actual json file containing the cookie categories (rule set), we need to request the following url:
+
+  https://cdn.cookielaw.org/consent/<DATA_DOMAIN_ID>/<DATA_DOMAIN_ID>.json
+
+  4. In the retrieved json document, we need to access the entry: 'json_doc["RuleSet"]', which will return a list of possible cookie consent policies.
+     Each element in this list will have an ["Id"] entry, and a ["LanguageSwitcherPlaceholder"] entry. The former is a hex string, while the latter is a list of available languages.
+     Check if 'en' is available in the LanguageSwitchPlaceholder entry, then access the following domain for each ruleset:
+
+     https://cdn.cookielaw.org/consent/<DATA_DOMAIN_ID>/<RULESET_ID>/en.json"
+
+  5. In the resulting json, we will find the cookie category assignments.
+
+--------------------------------
+--- 2. Variant: Inline JSON ----
+--------------------------------
+
+ * Example domains using this format:
+   > https://www.aveda.com/
+   > https://www.equipmenttrader.com/
+
+ * The json data can be retrieved as follows:
+
+ 1. Inside 'index.html', we find a script tag of the following structure:
+ Example 1: <script src="https://cdn.cookielaw.org/consent/ece24ff5-fc50-460c-8dad-e88c4bb6f2da.js?qfx0vk" defer></script>
+ Example 2: <script src="https://cdn.cookielaw.org/consent/a5903b90-d355-4b27-99a5-850e5dba0e80.js" type="text/javascript" charset="UTF-8"></script>
+
+ 2. Retrieve the javascript document pointed to by the src attribute.
+    Inside this document, there will be a function that contains an inline JSON document.
+
+    The location of the JSON document usually begins with:
+    ```
+    function u(){pa||(pa={cctId:
+    ```
+
+    and ends with the closing of the function:
+    ```
+    });return pa}
+    ```
+
+ 3. Once this document has been extracted out of the javascript file, we can process it further.
+    Note that this JSON file, while similar, does not have the exact same structure as that of Variant 1.
+
+For both variants, Selenium may be required such that the script tags can load in time.
+
+-----------------------------------
+---- Parsing the JSON document ----
+-----------------------------------
+
+* The JSON document may be quite lengthy and from observation it likely contains a ton of redundant information.
+
+---------------
+-- Variant 1 --
+---------------
+
+* The Cookie Categorization is stored inside "DomainData" -> "Groups" -> "i" where i = 0...N
+* Each Group contains two lists "FirstPartyCookies" and "Hosts", each containing cookie data.
+
+  1. "FirstPartyCookies" contains entries with the following attributes: (example from Metabomb.net)
+        {
+        "Name": "GoogleAdServingTest",
+        "Host": "www.metabomb.net",
+        "IsSession": true,
+        "Length": 0,
+        "description":	"This cookie is used to determine what ads have been shown to the website visitor."
+        }
+
+  2. "Hosts" first contains a list of host URLs, and inside the "Cookies" attribute is the same structure as above. Example from metabomb:
+        {
+        "HostName: "onetrust.com",
+        "DisplayName": "onetrust.com",
+        "HostId": "H389",
+        "Description": "",
+        "PrivacyPolicy": "",
+        "Cookies":
+            {
+            "0":
+                {
+                "Name": "__cfduid"
+                "Host": onetrust.com
+                "IsSession": false
+                "Length": 30
+                "description": "This domain is owned by OneTrust, a privacy management software which helps organizations achieve compliance with global regulations."
+                },
+            },
+        }
+
+
+* Note that both of these lists may be empty.
+
+* Each Group has a "PurposeId", a "GroupId" and an "OptAnonGroupId" entry, but none of these values seem to be consistent across sites, so for our purposes functionally useless.
+* The order of the groups is also not consistent across sites.
+* In fact the only attribute that does appear to be somewhat consistent across websites is the group name, however, this also changes if the language chosen isn't English.
+* This JSON may even contain garbage data... is nothing consistent in this file?
+
+* Known Group Names: (English)
+    > "GroupName" : "Strictly Necessary Cookies"
+    > "GroupName" : "Performance Cookies"
+    > "GroupName" : "Functional Cookies"
+    > "GroupName" : "Targeting Cookies"
+    > "GroupName" : "Social Media Cookies"
+    > "GroupName" : "Uncategorised cookies"
+    > "GroupName" : "Anonymised analytical cookies"
+    > "GroupName" : "Personalized Advertisements"
+    > "GroupName" : "Sale of Personal Data"
+    > "GroupName" : *random domain url*  # second variant is structured as a tree it appears. Each of these contains a URL as groupname, and has a parent that points to one of the other categories.
+
+## Notes: OneTrust contains a lot more cookie categories than CookieBot.
+# Equivalent categories:
+# > "Strictly Necessary Cookies" <-> "NECESSARY"
+# > "Functional Cookies" <-> "PREFERENCE"
+# > "Anonymized Analytical Cookies" <-> "STATISTICS"
+# > "Targeting Cookies" && "Personalized Advertisement" <-> "ADVERTISING"
+# > "Uncategorised Cookies" <-> "UNCLASSIFIED"
+# Unmatched: "Social Media Cookies",
+# more exist, see 'onetrust_categories.txt'
+
+---------------
+-- Variant 2 --
+---------------
+
+* The relevant data can be found as follows:
+ > ["Groups"] -> List of groups
+ > Each group is a dict, contains:
+   >> "Parent" : Contains parent group. No need to actually build a tree because the JSON contains copy-paste of every single parent attribute in this entry. This leads to completely redundant code, but it makes our job easier.
+   >> "GroupLanguagePropertiesSets" : Contains category name as ["GroupName"]["Text"]. Same group names as above.
+   >> "Cookies" --> Attributes ["Name"], ["Host"], ["IsSession"], ["Length"]
+
+* check if group has parent, if not, check "GroupLanguagePropertiesSets"/"GroupName"/"Text" for category. If yes, get the respective entry from the parent. Then, get cookie names.

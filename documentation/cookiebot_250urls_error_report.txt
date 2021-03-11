@@ -1,0 +1,159 @@
+# Out of the 250 URLs we try to crawl for Cookiebot, the following do not function properly for the following reason:
+
+==== Cookiebot present ====
+
+---- Crawler fails/works randomly ----
+
+* Website: "http://karlspreis.de"  ----  Details: "Connection to "http://karlspreis.de" failed. -- Details: HTTPConnectionPool(host='karlspreis.de', port=80): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fae04434130>: Failed to establish a new connection: [Errno -2] Name or service not known'))"
+
+---- Crawler doesn't work consistently ----
+
+> Reason: CBID inside a comment tag
+
+* Website: "http://basenotes.net"  ----  Details: "All attempts to find cookiebot cbid failed."
+
+* Website: "http://kelty.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+
+---- Bot Detection ----
+
+* Website: "http://kingsmill.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://topchefs.ie"  ----  Details: "Error Status Code: 403"
+* Website: "http://baudville.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://channelpronetwork.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://barcelonasae.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://nimble.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://knowing-jesus.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://ncss.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://noblehousehotels.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://bluesnap.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://cpcstrategy.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://tipalti.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://nutricargo.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://chordomafoundation.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://cisabroad.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://bloodjournal.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://capital.ro"  ----  Details: "Error Status Code: 520"
+* Website: "http://bareconductive.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://berkshires.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://nybooks.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://thedma.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://cornerstonethechurch.com"  ----  Details: "Error Status Code: 406"
+* Website: "http://cleaningforareason.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://trekbikes.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://nwuav.com"  ----  Details: "Error Status Code: 406"
+* Website: "http://bonniercorp.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://truestrike.com"  ----  Details: "Error Status Code: 406"
+* Website: "http://naturtintusa.com"  ----  Details: "Error Status Code: 403"
+
+---- Zero Cookies ----
+
+* Website: "http://themanual.com"  ----  Details: "No cookies found in https://consent.cookiebot.com/63b3b1c3-501e-4857-a443-1c4281f2a970/cc.js?referer=www.themanual.com "
+
+==== No cookiebot present ====
+
+* Website: "http://navytimes.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://theclassicalstation.org"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://kauperts.de"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://123helpme.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://outdoorlife.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://newholland.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://canarias7.es"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://cruisingworld.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://oceanet.eu"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://nsob.nl"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://nikwax.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://boogiewoogiepianosheetmusic.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://clicktools.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://knightoptical.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://burgerking.es"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://bizible.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://carrieannryan.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://christmastraditions.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://tappedout.net"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://onlinecouch.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://oceanicworldwide.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://caseih.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://becomegorgeous.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://thetis.tv"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://kleinezeitung.at"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://comodo.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://cfapps.io"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://bluejeans.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://cycleworld.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://thebestbrainpossible.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://boatingmag.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://businesscasestudies.co.uk"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://bodyguardz.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://bushheritage.org.au"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://casio.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://naturesbest.co.uk"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://birdsandbirds.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://t-nation.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://crownandcaliber.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://tropenmuseum.nl"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://calliduscloud.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://tigbrush.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://costacrociere.it"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://newsmax.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://coconuda.eu"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://budind.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://tivoli.dk"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://cph.dk"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://breakingisraelnews.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://theinnatstonecliffe.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://cpaglobal.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+
+---- Cookiebot in subpage ---
+
+* Website: "http://casece.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+
+
+---- Cookiebot not set up correctly by website ----
+
+* Website: "http://treasurevalleycasino.com"  ----  Details: "SSL Certificate issue encountered when connecting to http://treasurevalleycasino.com. -- Details: HTTPSConnectionPool(host='treasurevalleycasino.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1108)')))"
+
+* Website: "http://chisholmtrailcasino.com"  ----  Details: "SSL Certificate issue encountered when connecting to http://chisholmtrailcasino.com. -- Details: HTTPSConnectionPool(host='chisholmtrailcasino.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1108)')))"
+
+* Website: "http://organicfacts.net"  ----  Details: "Cookiebot doesn't recognize referer "http://organicfacts.net" with cbid "ba701fb8-dc37-4882-af84-6fde4e46b814" as a valid domain."
+* Website: "http://talkingfingers.com"  ----  Details: "Cookiebot doesn't recognize referer "www.talkingfingers.com" with cbid "e117420d-be33-43cc-b1cc-2ea1b1d006c6" as a valid domain."
+* Website: "http://tlsbooks.com"  ----  Details: "Cookiebot doesn't recognize referer "www.tlsbooks.com" with cbid "101ae763-d22a-43b4-84cb-055271e73b3f" as a valid domain."
+* Website: "http://teamjolokia.com"  ----  Details: "Cookiebot doesn't recognize referer "www.teamjolokia.com" with cbid "3a2131f3-ef79-4eae-a0bd-ba39cf8b53f1" as a valid domain."
+* Website: "http://cascadedesigns.com"  ----  Details: "Cookiebot doesn't recognize referer "www.cascadedesigns.com" with cbid "1146087d-893c-4a65-91dc-03de464b281e" as a valid domain."
+* Website: "http://nolan.it"  ----  Details: "Cookiebot doesn't recognize referer "www.nolan.it" with cbid "220cf984-f282-423f-9185-f519832594a8" as a valid domain."
+* Website: "http://kempsarchitecturallighting.com"  ----  Details: "Cookiebot doesn't recognize referer "www.kempsarchitecturallighting.com" with cbid "8476e30a-fa2a-444a-98b8-28162de01ea6" as a valid domain."
+* Website: "http://thesurrey.com"  ----  Details: "Cookiebot doesn't recognize referer "www.thesurrey.com" with cbid "8fd7db7b-8f1a-4efa-8036-af0a9edef1a4" as a valid domain."
+* Website: "http://thouartexalted.com"  ----  Details: "Cookiebot doesn't recognize referer "thouartexalted.com" with cbid "2dccad67-5262-4b75-be05-d9332382d636" as a valid domain."
+* Website: "http://tekni-plex.com"  ----  Details: "Cookiebot doesn't recognize referer "www.tekni-plex.com" with cbid "41cce5ba-78cb-44bf-901f-5d303da347ab" as a valid domain."
+* Website: "http://naturaltherapypages.co.uk"  ----  Details: "Cookiebot doesn't recognize referer "www.naturaltherapypages.co.uk" with cbid "05ed089a-59da-4074-a594-5bd64b5ec1ce" as a valid domain."
+* Website: "http://onlinecomponents.com"  ----  Details: "Cookiebot doesn't recognize referer "www.onlinecomponents.com" with cbid "95d5adc0-d245-436d-9630-474f1673d404" as a valid domain."
+* Website: "http://open-electronics.org"  ----  Details: "Cookiebot doesn't recognize referer "www.open-electronics.org" with cbid "4f3d5632-d713-4f5b-aa2b-56f57c2db7ba" as a valid domain."
+* Website: "http://krilloil.com"  ----  Details: "Cookiebot doesn't recognize referer "krilloil.com" with cbid "c4a29e94-98a9-4b8f-9e27-8d13a9e099d7" as a valid domain."
+* Website: "http://benvenutolimos.com"  ----  Details: "Cookiebot doesn't recognize referer "www.benvenutolimos.com" with cbid "ce0ca6d5-4bd4-41cc-9ec4-c706857f743d" as a valid domain."
+* Website: "http://babykins.com"  ----  Details: "Cookiebot doesn't recognize referer "www.babykins.com" with cbid "5416918a-4635-4429-801a-7c72f4000b58" as a valid domain."
+* Website: "http://cambriausa.com"  ----  Details: "Cookiebot doesn't recognize referer "www.cambriausa.com" with cbid "0786d870-8970-4ddf-959c-376d2e7da91c" as a valid domain."
+* Website: "http://td2inc.com"  ----  Details: "Cookiebot doesn't recognize referer "td2inc.com" with cbid "91f36549-7bba-4583-b7fd-3822db5941f7" as a valid domain."
+* Website: "http://thebenjamin.com"  ----  Details: "Cookiebot doesn't recognize referer "www.thebenjamin.com" with cbid "f369bd6b-b2bf-49cd-a5f4-d7b3f029dfb3" as a valid domain."
+* Website: "http://cmtco.com"  ----  Details: "Cookiebot doesn't recognize referer "cmtco.com" with cbid "f02fc277-5f7a-408d-a79c-1863cac3bccd" as a valid domain."
+* Website: "http://celebration.org"  ----  Details: "Cookiebot doesn't recognize referer "www.celebration.org" with cbid "dd8352f2-78d1-44f3-97ba-92a1dcabc5e7" as a valid domain."
+* Website: "http://c4isrnet.com"  ----  Details: "Cookiebot doesn't recognize referer "www.c4isrnet.com" with cbid "6933e438-eb44-4576-9af9-f8c9ee399d6d" as a valid domain."
+* Website: "http://cepher.net"  ----  Details: "Cookiebot doesn't recognize referer "www.cepher.net" with cbid "78e8cacb-938a-44cc-b294-5bfec993ef8b" as a valid domain."
+* Website: "http://orvietounderground.it"  ----  Details: "Cookiebot doesn't recognize referer "orvietounderground.it" with cbid "5b82a059-acf3-4ddc-9a96-23bba658a3f2" as a valid domain."
+* Website: "http://trojanbattery.com"  ----  Details: "All attempts to find cookiebot cbid failed."
+* Website: "http://trespa.com"  ----  Details: "Cookiebot doesn't recognize referer "www.trespa.com" with cbid "f30eff20-ab68-4a8c-bf57-2ca331182c05" as a valid domain."
+* Website: "http://top10homeremedies.com"  ----  Details: "Cookiebot doesn't recognize referer "www.top10homeremedies.com" with cbid "1d522e75-c0bc-4250-901f-97eb01f5c2cc" as a valid domain"
+
+
+==== Other Error ====
+
+---- Website Dead ----
+
+* Website: "http://besso.co.uk"  ----  Details: "Connection to "http://besso.co.uk" failed. -- Details: HTTPConnectionPool(host='besso.co.uk', port=80): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fae04434340>: Failed to establish a new connection: [Errno -2] Name or service not known'))"
+
+---- Cannot Connect ----
+
+* Website: "http://britishlegion.org.uk"  ----  Details: "Connection to "http://britishlegion.org.uk" failed. -- Details: HTTPConnectionPool(host='britishlegion.org.uk', port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7fae0442b0a0>, 'Connection to britishlegion.org.uk timed out. (connect timeout=6)'))"
+
+---- SSL Error ----
+
+* Website: "http://netchimp.co.uk"  ----  Details: "SSL Certificate issue encountered when connecting to http://netchimp.co.uk. -- Details: HTTPSConnectionPool(host='netchimp.co.uk', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError("hostname 'netchimp.co.uk' doesn't match 'www.netchimp.co.uk'")))"
+

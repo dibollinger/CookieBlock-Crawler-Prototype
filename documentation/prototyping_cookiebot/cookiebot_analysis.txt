@@ -1,0 +1,142 @@
+
+---------------------------
+Cookiebot Consent Library
+---------------------------
+
+* Cookiebot displays a consent notice including a table which contains five categories of cookies.
+  > Necessary Cookies
+  > Preferences
+  > Statistics
+  > Marketing
+  > Unclassified
+
+* In some variations of the Cookiebot overlay, each category can be disabled separately (e.g. purplemath.com).
+  In others however, it is only possible to allow all cookies, or leave the site. (e.g. gamefly.com)
+* In the latter case, as there is no choice but to accept, the cookies will already be loaded before the user has given consent.
+
+* Inside the details table, for each cookie the following information is shown:
+  > Cookie Name (may or may not match the actual name)
+  > Provider (usually a hyperlink to a privacy policy - hyperlink may not match the provider)
+  > Purpose (Describes the purpose of the cookie. "Pending" if undefined.)
+  > Expiry (Session, Persistent or some duration in hours/days/years)
+  > Type (Known values are HTTP, HTML and Pixel. The latter is likely pixel trackers that aren't actually cookies.)
+
+* Some values are listed internally. These appear to be type ID, regex definitions to identify variations of the cookie name and the hyperlink URL.
+* Not every cookie shown in the table actually exists on the site itself. In fact, some of the named cookies may not be cookies at all, but for example, pixel trackers.
+* Some sites also have cookies that are not listed anywhere in the table.
+
+* Properties such as "Host Only", "HTTP Only", "Secure" etc. are not listed and need to be crawled from the cookie itself.
+* "About Cookies" tab content can also vary depending on site.
+* Cookiebot does not appear if you connect from within the geographic region of Switzerland, in that case all cookies are automatically accepted.
+
+Examples of CookieBot Usage:
+
+============== Example 1: PurpleMath ======================
+
+URL: https://www.purplemath.com/
+* Categories "Preferences", "Statistics", "Marketing" can be disabled.
+* All categories are enabled by default.
+* Unclassified and Necessary Cookies cannot be disabled.
+COOKIES:
+-------------------------------------------------------------
+(15.09)
+6 Necessary
+3 Preferences
+11 Statistics
+16 Marketing
+14 Unclassified
+1 Unlisted
+-------------------------------------------------------------
+
+
+------------------------------------------------------------------
+CookieBot Javascript:
+------------------------------------------------------------------
+
+* The following is the URL used to retrieve the Javascript that contains, among other things, the cookie category data:
+
+https://consent.cookiebot.com/57947215-bf68-4a54-a017-454edced5413/cc.js?renew=false&referer=www.purplemath.com&dnt=false&forceshow=false&cbid=57947215-bf68-4a54-a017-454edced5413&whitelabel=false&brandid=Cookiebot&framework=&georegions=%5B%7B%22r%22%3A%22US-06%22%2C%22i%22%3A%22a6af6840-f34a-4667-91b2-7ee4bc5ac03f%22%7D%5D
+
+--------
+All the parameters can be removed and the base URL retrieves the same file. Example for purplemath:
+
+https://consent.cookiebot.com/57947215-bf68-4a54-a017-454edced5413/cc.js
+
+The bare minimum HTTP header you need to receive the javascript document is the following:
+
+---Minimum Request Header---
+Host: consent.cookiebot.com
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://www.purplemath.com/
+
+
+The "Referer" value must be specified. If this is not set to "https://www.purplemath.com", the request will instead return an "Out-Of-Region" response.
+
+Inside cc.js, the cookie category data can be found in the following:
+CookieConsentDialog.cookieTableNecessary = [[..], [..], ... ]
+CookieConsentDialog.cookieTablePreference = [[..], [..], ... ]
+CookieConsentDialog.cookieTableStatistics = [[..], [..], ... ]
+CookieConsentDialog.cookieTableAdvertising = [[..], [..], ... ]
+CookieConsentDialog.cookieTableUnclassified = [[..], [..], ... ]
+
+Also interesting is the following:
+CookieConsent.whitelist = ['JSESSIONID','CookieConsent','PHPSESSID','SESS#','Mathway.AnonUserId','testId'];
+
+This matches the necessary cookies for purplemath, so this most likely allows these cookies to be loaded before consent is given.
+
+Additionally, the following links to privacy policies:
+
+CookieConsentDialog.privacyPolicies = [['amazon-adsystem.com','Amazon','https://www.amazon.co.uk/gp/help/customer/display.html/ref=footer_privacy?ie=UTF8&nodeId=201909010'],['bam.nr-data.net','New Relic','https://newrelic.com/termsandconditions/services-notices'],['contextual.media.net','Media.net','https://www.media.net/en/privacy-policy'],['cookiebot.com','Cookiebot','https://www.cookiebot.com/goto/privacy-policy/'],['doubleclick.net','Google','https://policies.google.com/privacy'],['edge.quantserve.com','Quantcast','https://www.quantcast.com/privacy/'],['google.com','Google','https://policies.google.com/privacy'],['googleads.g.doubleclick.net','Google','https://policies.google.com/privacy'],['hblg.media.net','Media.net','https://www.media.net/en/privacy-policy'],['lg3.media.net','Media.net','https://www.media.net/en/privacy-policy'],['media.net','Media.net','https://www.media.net/en/privacy-policy'],['nr-data.net','New Relic','https://newrelic.com/privacy'],['pagead2.googlesyndication.com','Google','https://policies.google.com/privacy'],['quantserve.com','Quantcast','https://www.quantcast.com/privacy/'],['stats.g.doubleclick.net','Google','https://policies.google.com/privacy'],['www.google-analytics.com','Google','https://policies.google.com/privacy'],['www.mathway.com','Mathway','https://www.mathway.com/privacy']];
+CookieConsentDialog.privacyPolicyText = '{0}\'s privacy policy';
+
+======== Example 2: https://www.gamefly.com/ ========
+
+* No option to disable any cookies.
+* Cookies are downloaded before consent can be given, likely because they can't be disabled anyways.
+* "About Cookies" tab content is also variable. This site does not refer to a privacy policy.
+
+-------------------------------------------------------------
+COOKIES:
+-------------------------------------------------------------
+(15.09)
+2 Necessary
+0 Preferences
+3 Statistics
+10 Marketing
+1 Unclassified
+1 Cookie that doesn't match the name given in the table
+-------------------------------------------------------------
+* Cookie Name that doesn't match:
+Name in Table: _gat
+Actual Name: _gat_UA-29434552-8
+-------------------------------------------------------------
+
+* The following URL is used to retrieve the CookieBot data for gamefly.com:
+
+https://consent.cookiebot.com/38e1da47-6b78-4193-8031-61d6f2fa024e/cc.js?renew=false&referer=www.gamefly.com&dnt=false&forceshow=false&cbid=38e1da47-6b78-4193-8031-61d6f2fa024e&whitelabel=false&brandid=CookieConsent&framework=
+
+* As before, it is possible to shorten this URL and request header as follows:
+
+https://consent.cookiebot.com/38e1da47-6b78-4193-8031-61d6f2fa024e/cc.js
+
+-- Minimum Request Header --
+Host: consent.cookiebot.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://www.gamefly.com/
+
+* However, gamefly does not have the cookie bot ID in it's main HTML page. Selenium will be needed to extract it.
+
+===== Takeaways =====
+
+URL: https://consent.cookiebot.com/<CBID>/cc.js
+HTTP Header: "Referer: <URL>"
+
+* Need referrer domain + cookie bot ID to retrieve cc.json
+* cc.json contains the category assignments for each cookie name.
+* However, not all cookies used by the site are necessarily listed in the table, and not all cookies are actually set by the website.
+* Not all names listed are actually true cookies, for example Pixel trackers are also listed.

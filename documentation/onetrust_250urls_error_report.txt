@@ -1,0 +1,349 @@
+# Onetrust errors and why they occurred:
+
+== Works Randomly ==
+
+* Website: "http://bleacherreport.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://bleacherreport.com"
+
+>> site loading may be very slow
+
+* Website: "http://chanel.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://chanel.com"
+* Website: "http://natgeotv.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://natgeotv.com"
+
+>> only triggered once one chooses region, then it's cookielaw
+
+* Website: "http://nxp.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://nxp.com"
+
+>> Directly hosted on the site itself, not on any CDN.
+
+
+=== Parser Failed ===
+
+>>> parser can fail because the attempted transformation of javascript into JSON is not perfect
+
+* Website: "http://tmz.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/a51c2d8c-5d3e-4d29-b15c-5d7d944c2809.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 116 (char 115)"
+* Website: "http://babycenter.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/000d41d1-6367-4a3a-9d92-4f0d7e502fe7.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 1131 (char 1130)"
+* Website: "http://cancer.org"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/fdb54d8a-a92d-449a-a505-766be8198573.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting ',' delimiter: line 1 column 1325 (char 1324)"
+* Website: "http://technologyreview.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/a321aa9c-3063-4225-abb6-0285fd5607e6.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 945 (char 944)"
+* Website: "http://thepointsguy.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/4d9c0bff-646f-445c-ba6f-9116f99e770a.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1260 (char 1259)"
+* Website: "http://caesars.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/3d589240-698b-41ef-b6f9-ddc8bd16c33c.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Extra data: line 1 column 75063 (char 75062)"
+* Website: "http://netxinvestor.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/da98ab1a-41d2-45de-88ba-d41e0a052e5a.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 107 (char 106)"
+* Website: "http://battle.net"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/cdd0e452-694a-4208-9230-4b862be69963.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 1143 (char 1142)"
+* Website: "http://cirquedusoleil.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/bf064761-3346-4852-8fe4-e8eb729d87f0.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1451 (char 1450)"
+* Website: "http://cancer.net"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/0f994ebb-4abb-4548-971f-d8ef3efbb6a3.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 116 (char 115)"
+* Website: "http://biltmore.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/3e97d593-bc9a-4c08-a2c6-dda7db8bc3f5.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1374 (char 1373)"
+* Website: "http://brilliantearth.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/5be3af2d-b83c-42d4-8634-9861e9308d13.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1206 (char 1205)"
+* Website: "http://cru.org"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/c8a63d17-3ae7-465b-a9b5-0a69344aec49.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 1132 (char 1131)"
+* Website: "http://bingoblitz.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/77d5e2d7-1bac-44c3-ac89-a31fba1d6359.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 475 (char 474)"
+* Website: "http://cellfire.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/16e1414a-ff1a-4df0-b337-8f5ad3c2b83b.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1288 (char 1287)"
+* Website: "http://care.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/58cfd59e-6b54-4d43-8b2c-bb06033cc224.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 1190 (char 1189)"
+* Website: "http://cardinalhealth.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/abf742f6-bfa2-47c0-82d6-d67f9aa631ce.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1334 (char 1333)"
+* Website: "http://blizzard.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/cdd0e452-694a-4208-9230-4b862be69963.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 1143 (char 1142)"
+* Website: "http://olehenriksen.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/22dcf738-dca9-4888-80c2-c94a3ed4bfec.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 267 (char 266)"
+* Website: "http://carlingtech.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/b025af8d-74f2-4e5d-991e-d9492f958fa7.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting ',' delimiter: line 1 column 1293 (char 1292)"
+* Website: "http://bkd.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/25046ecf-6435-4349-9065-c5ace1a13396.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1439 (char 1438)"
+* Website: "http://tagheuer.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/c262f9c7-ec79-46d3-a033-e198f84e12e9.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Extra data: line 1 column 48443 (char 48442)"
+* Website: "http://thedealertoolbox.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/43f8f919-60d3-4f4a-99ef-290cbf51eaa5.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1401 (char 1400)"
+* Website: "http://convertfiles.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/34e8a72d-6fdf-4c05-8f4b-667ed79f1159.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1335 (char 1334)"
+* Website: "http://calpol.co.uk"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/4b1a42b2-8560-48e7-a21c-e25c8f66e73d.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 1084 (char 1083)"
+* Website: "http://kilpatricktownsend.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/94886224-e0b9-4847-b829-899cfd6e832d.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1356 (char 1355)"
+* Website: "http://twr.org"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/597cdd3c-243d-409f-82b2-73c5ef6f583d.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1669 (char 1668)"
+* Website: "http://nationalfisherman.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/eeb98cff-b29f-4f58-acbc-f87040b9bcf1.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1366 (char 1365)"
+* Website: "http://kerbalspaceprogram.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/39d2cd29-c80c-4c00-8e57-a4629e40b0c6.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1342 (char 1341)"
+* Website: "http://britrail.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/cc97792c-80ba-4730-bd1f-14d3570a92bb.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1359 (char 1358)"
+* Website: "http://christiesrealestate.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/ae44fec6-e60a-4455-846e-26f2b33f3472.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1351 (char 1350)"
+* Website: "http://classy.org"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/90878090-b056-4f18-ba2e-1316118658ec.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 999 (char 998)"
+* Website: "http://bitbucket.org"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/ecf1dcec-418c-4be5-9466-f9cdc3bb91d1.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1457 (char 1456)"
+* Website: "http://novobanco.pt"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/9d8b17d7-dd3b-44bd-9c8c-e08f43334bb6.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1161 (char 1160)"
+* Website: "http://biotherm.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/3ba1f4b8-b78c-469a-b2ce-53eb90487368.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 5960 (char 5959)"
+* Website: "http://baccarat.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/774b930f-23e3-4ce2-ae6b-081c005d39bf.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Extra data: line 1 column 32990 (char 32989)"
+* Website: "http://nae.edu"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/dc5dac42-d580-4b39-9c16-94ffc14c12c0.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting ',' delimiter: line 1 column 1190 (char 1189)"
+* Website: "http://cta.int"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/e73bd0aa-308b-46c3-88b4-045173fa50dd.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1359 (char 1358)"
+* Website: "http://nobelbiocare.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/4bc99df0-2441-4a79-8db5-2bd67e3f136a.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 2583 (char 2582)"
+* Website: "http://kofax.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/d01df311-1d03-4d71-822d-34ed60356082.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1387 (char 1386)"
+* Website: "http://kew.org"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/4a29a69f-c9b2-4f7a-8057-7c52cb1e5abf.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1364 (char 1363)"
+* Website: "http://onlineethics.org"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/fc78431e-f8ef-4824-b51b-a70e0d18f1d5.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting ',' delimiter: line 1 column 1191 (char 1190)"
+* Website: "http://trimbledimensions.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/e54ccec1-4743-48c6-a60d-12027a0a79e2.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Extra data: line 1 column 3174 (char 3173)"
+* Website: "http://toodledo.com"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/8e8563ad-79ba-41a1-9b07-d10473d3e78e.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Invalid \escape: line 1 column 1350 (char 1349)"
+* Website: "http://conquercancerfoundation.org"  ----  Details: "Failed to decode transformed object into json for url: https://cdn.cookielaw.org/consent/5024c898-462f-430a-bbfd-7b963da3b916.js -- Details: <class 'json.decoder.JSONDecodeError'> -- Expecting value: line 1 column 117 (char 116)"
+* Website: "http://bannerflow.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://bannerflow.com"
+
+
+--- Different Cookielaw inner format ---
+
+
+* Website: "http://benchmarkemail.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+* Website: "http://bmetrack.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+* Website: "http://chevron.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+* Website: "http://camfrog.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+* Website: "http://coopertire.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+* Website: "http://taser.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+* Website: "http://bme1.net"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+* Website: "http://boards2go.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+* Website: "http://teamtreehouse.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+* Website: "http://ncr.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+
+=== OneTrust present in untracked format ===
+
+The following all appear to have the same format but are from different providers:
+
+
+-- optanon.blob.windows.net/consent (cookies available in js) --
+or: https://optanon.blob.core.windows.net/consent/7927e00b-a1c8-4dd4-ac21-a2ac1e81c615.js?build=121194
+
+
+Structure of link:
+<script type="text/javascript" id="" charset="UTF-8" src="https://optanon.blob.core.windows.net/consent/019617f3-9d4b-4114-851e-ed2880b81de9.js"></script>
+
+
+
+* Website: "http://nrdc.org"  ----  Details: "Message: Timeout loading page after 30000ms
+* Website: "http://northerntrust.com"  ----  Details: "Connection to "http://northerntrust.com" failed. -- Details: HTTPConnectionPool(host='www.northerntrust.com', port=80): Read timed out. (read timeout=30)"
+* Website: "http://coasthotels.com"  ----  Details: "Connection to "http://coasthotels.com" failed. -- Details: HTTPSConnectionPool(host='www.coasthotels.com', port=443): Read timed out. (read timeout=30)"
+* Website: "http://trulia.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://trulia.com"
+* Website: "http://optimizely.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://optimizely.com"
+* Website: "http://blackrock.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://blackrock.com"
+* Website: "http://colourlovers.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://colourlovers.com"
+* Website: "http://covers.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://covers.com"
+* Website: "http://oshkosh.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://oshkosh.com"
+* Website: "http://1shoppingcart.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://1shoppingcart.com"
+* Website: "http://coreldraw.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://coreldraw.com"
+* Website: "http://clearslide.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://clearslide.com"
+* Website: "http://chubb.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://chubb.com"
+* Website: "http://targetcw.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://targetcw.com"
+* Website: "http://taylorguitars.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://taylorguitars.com"
+* Website: "http://tradeservice.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://tradeservice.com"
+* Website: "http://tuftsmedicalcenter.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://tuftsmedicalcenter.org"
+* Website: "http://clearslidemail.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://clearslidemail.com"
+* Website: "http://chinasearch.co.uk"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://chinasearch.co.uk"
+* Website: "http://touchlocal.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://touchlocal.com"
+* Website: "http://brighton.ac.uk"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://brighton.ac.uk"
+
+
+
+-- cookie-cdn.cookiepro.net:
+example: https://cookie-cdn.cookiepro.com/consent/c23c9094-1a33-4de6-8b18-bae29a8cbb95/c23c9094-1a33-4de6-8b18-bae29a8cbb95.json
+
+<script type="text/javascript" src="https://cookie-cdn.cookiepro.com/consent/5b0bbf03-3d22-48bc-8bf7-038f7043d9d4.js?ver=1.0" defer=""></script>
+
+
+* Website: "http://tahoedailytribune.com"  ----  Details: "Message: Timeout loading page after 30000ms
+* Website: "http://nevadaappeal.com"  ----  Details: "Message: Timeout loading page after 30000ms
+* Website: "http://consumerreports.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://consumerreports.org"
+* Website: "http://beliefnet.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://beliefnet.com"
+* Website: "http://cdbaby.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://cdbaby.com"
+* Website: "http://trustwave.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://trustwave.com"
+* Website: "http://cascadeloop.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://cascadeloop.com"
+* Website: "http://coinmama.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://coinmama.com"
+* Website: "http://nextdaylenses.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://nextdaylenses.com"
+* Website: "http://cohnreznick.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://cohnreznick.com"
+* Website: "http://kennywayneshepherd.net"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://kennywayneshepherd.net"
+* Website: "http://niagarafallsmarriott.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://niagarafallsmarriott.com"
+* Website: "http://takingbacksunday.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://takingbacksunday.com"
+
+
+
+-- cookiepro.blob.core.windows.net --
+
+* Website: "http://transition.com"  ----  Details: "SSL Certificate issue encountered when connecting to http://transition.com. -- Details: HTTPSConnectionPool(host='www.transition.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1108)')))"
+
+<script src="https://cookiepro.blob.core.windows.net/consent/70b7ab4c-1619-4d42-968c-47f6152f2c22-test.js" type="text/javascript" charset="UTF-8"></script>
+
+=== OneTrust issue ===
+
+--- present but no categories ---
+
+* Website: "http://onestopenglish.com"  ----  Details: "Connection to "http://onestopenglish.com" failed. -- Details: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+
+
+
+--- incorrect setup ---
+
+* Website: "http://news.at"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://news.at"
+
+
+
+
+
+-- OneTrust not present at all ---
+
+* Website: "http://theunion.com"  ----  Details: "Message: Timeout loading page after 30000ms
+* Website: "http://tsln.com"  ----  Details: "Message: Timeout loading page after 30000ms
+* Website: "http://thescottishsun.co.uk"  ----  Details: "Connection to "http://thescottishsun.co.uk" failed. -- Details: HTTPSConnectionPool(host='www.thescottishsun.co.uk', port=443): Read timed out. (read timeout=30)"
+* Website: "http://chevronlubricants.com"  ----  Details: "SSL Certificate issue encountered when connecting to http://chevronlubricants.com. -- Details: HTTPSConnectionPool(host='www.chevronlubricants.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1108)')))"
+* Website: "http://cevalogistics.com"  ----  Details: "SSL Certificate issue encountered when connecting to http://cevalogistics.com. -- Details: HTTPSConnectionPool(host='www.cevalogistics.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1108)')))"
+* Website: "http://brainjet.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://brainjet.com"
+* Website: "http://collegehumor.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://collegehumor.com"
+* Website: "http://cinemablend.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://cinemablend.com"
+* Website: "http://odometer.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://odometer.com"
+* Website: "http://tickld.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://tickld.com"
+* Website: "http://clipd.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://clipd.com"
+* Website: "http://charitynavigator.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://charitynavigator.org"
+* Website: "http://catholic.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://catholic.com"
+* Website: "http://net10.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://net10.com"
+* Website: "http://bbcgoodfood.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://bbcgoodfood.com"
+* Website: "http://oola.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://oola.com"
+* Website: "http://briggsandstratton.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://briggsandstratton.com"
+* Website: "http://thetimes.co.uk"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://thetimes.co.uk"
+* Website: "http://knfilters.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://knfilters.com"
+* Website: "http://baylor.edu"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://baylor.edu"
+* Website: "http://coca-cola.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://coca-cola.com"
+* Website: "http://ngeo.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://ngeo.com"
+* Website: "http://nami.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://nami.org"
+* Website: "http://tiffany.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://tiffany.com"
+* Website: "http://brooksrunning.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://brooksrunning.com"
+* Website: "http://businessmagazin.ro"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://businessmagazin.ro"
+* Website: "http://ccfa.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://ccfa.org"
+* Website: "http://ncld.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://ncld.org"
+* Website: "http://theisraelboutique.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://theisraelboutique.com"
+* Website: "http://ccf.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://ccf.org"
+* Website: "http://temeculacreekinn.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://temeculacreekinn.com"
+* Website: "http://combinedinsurance.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://combinedinsurance.com"
+* Website: "http://citizensforethics.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://citizensforethics.org"
+* Website: "http://bdo.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://bdo.com"
+* Website: "http://cityofhope.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://cityofhope.org"
+* Website: "http://neighborhoodcats.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://neighborhoodcats.org"
+* Website: "http://klick.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://klick.com"
+* Website: "http://cognac-expert.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://cognac-expert.com"
+* Website: "http://tenga-global.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://tenga-global.com"
+* Website: "http://the-tls.co.uk"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://the-tls.co.uk"
+* Website: "http://thefridacinema.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://thefridacinema.org"
+* Website: "http://thewaterproject.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://thewaterproject.org"
+* Website: "http://namecheap.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://namecheap.com"
+* Website: "http://klydewarrenpark.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://klydewarrenpark.org"
+* Website: "http://kaufmanmusiccenter.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://kaufmanmusiccenter.org"
+* Website: "http://teach.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://teach.com"
+* Website: "http://curethekids.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://curethekids.org"
+* Website: "http://oakwood.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://oakwood.com"
+* Website: "http://code.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://code.org"
+* Website: "http://tiffany.ca"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://tiffany.ca"
+* Website: "http://ksta.de"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://ksta.de"
+* Website: "http://bronxarts.net"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://bronxarts.net"
+* Website: "http://netx360.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://netx360.com"
+* Website: "http://toughmudder.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://toughmudder.com"
+* Website: "http://tokbox.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://tokbox.com"
+* Website: "http://njsymphony.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://njsymphony.org"
+* Website: "http://4spe.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://4spe.org"
+* Website: "http://tamswitmark.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://tamswitmark.com"
+* Website: "https://www.brides.com"
+* Website: "https://www.cedars-sinai.org/"
+
+=== Bot Detection ===
+
+* Website: "http://caspio.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://bluesnap.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://commdiginews.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://chegg.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://bakeru.edu"  ----  Details: "Error Status Code: 403"
+* Website: "http://oregonfoodbank.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://burl.co"  ----  Details: "Error Status Code: 404"
+* Website: "http://condusiv.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://colorschemedesigner.com"  ----  Details: "Error Status Code: 406"
+* Website: "http://trumpnationalphiladelphia.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://thalys.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://ccl.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://brightpink.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://tonygentilcore.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://kaboom.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://catholiccharities-md.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://kaseya.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://bancroft.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://koshertoday.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://nptrust.org"  ----  Details: "Error Status Code: 403"
+* Website: "http://chickcorea.com"  ----  Details: "Error Status Code: 403"
+* Website: "http://ticketone.it"  ----  Details: "Connection to "http://ticketone.it" failed. -- Details: HTTPConnectionPool(host='www.ticketone.it', port=80): Read timed out. (read timeout=30)"
+
+=== Website Broken/Unreachable ===
+
+* Website: "http://btol.com"  ----  Details: "Connection to "http://btol.com" failed. -- Details: HTTPConnectionPool(host='btol.com', port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7fe5883e05e0>, 'Connection to btol.com timed out. (connect timeout=6)'))"
+* Website: "http://thearc.org"  ----  Details: "Connection to "http://thearc.org" failed. -- Details: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+* Website: "http://baker-taylor.com"  ----  Details: "Connection to "http://baker-taylor.com" failed. -- Details: HTTPConnectionPool(host='baker-taylor.com', port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7fe5883cc550>, 'Connection to baker-taylor.com timed out. (connect timeout=6)'))"
+* Website: "http://careerbuilder.ca"  ----  Details: "Connection to "http://careerbuilder.ca" failed. -- Details: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+* Website: "http://biblebaptistlawton.com"  ----  Details: "Connection to "http://biblebaptistlawton.com" failed. -- Details: HTTPConnectionPool(host='biblebaptistlawton.com', port=80): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fe5880d1250>: Failed to establish a new connection: [Errno -2] Name or service not known'))"
+* Website: "http://tagworldwide.com"  ----  Details: "Connection to "http://tagworldwide.com" failed. -- Details: HTTPConnectionPool(host='tagworldwide.com', port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7fe5884d07f0>, 'Connection to tagworldwide.com timed out. (connect timeout=6)'))"
+* Website: "http://turner.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://turner.com"
+* Website: "http://thescene.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://thescene.com"
+
+
+=== Unknown Issue ===
+
+The following should work, but don't for whatever reason:
+
+* Website: "http://kia.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://kia.com"
+* Website: "http://britannica.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://britannica.com"
+* Website: "http://kennedykrieger.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://kennedykrieger.org"
+* Website: "http://trb.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://trb.org"
+* Website: "http://copilotlive.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://copilotlive.com"
+* Website: "http://nas.edu"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://nas.edu"
+* Website: "http://copilotgps.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://copilotgps.com"
+* Website: "http://navigantresearch.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://navigantresearch.com"
+* Website: "http://crypto.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://crypto.com"
+* Website: "http://barry-callebaut.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://barry-callebaut.com"
+* Website: "http://civilization.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url on website: http://civilization.com"
+
+> cookielaw is clearly present, but the script cannot find the data-domain-id anywhere. Yet it is still loaded somehow?
+
+
+* Website: "http://networksolutions.com"  ----  Details: "Details: <class 'KeyError'> - 'Culture'"
+
+>>> json lacks the ["Language"]["Culture"] entry
+
+
+
+
+
+
+
+
+
+### UPDATE: After fixing parser and domain issues, now the following websites still give an error status (excluding ones where OneTrust was never set up correctly)
+
+2020-10-19-12:40:00 :: scrape_cl :: INFO :: Crawl Completed. Success: 137/250 -- Failed: 113/250 -- Critical Errors: 0
+
+Error Type 1
+Website: "http://coasthotels.com"  ----  Details: "Connection to "http://coasthotels.com" failed. -- Details: HTTPSConnectionPool(host='www.coasthotels.com', port=443): Read timed out. (read timeout=30)"
+Website: "http://ticketone.it"  ----  Details: "Connection to "http://ticketone.it" failed. -- Details: HTTPConnectionPool(host='www.ticketone.it', port=80): Read timed out. (read timeout=30)"
+Error Type 2 (Most likely bot detection)
+Website: "http://kaboom.org"  ----  Details: "Error Status Code: 403"
+Website: "http://bakeru.edu"  ----  Details: "Error Status Code: 403"
+Website: "http://ccl.org"  ----  Details: "Error Status Code: 403"
+Website: "http://caspio.com"  ----  Details: "Error Status Code: 403"
+Website: "http://trumpnationalphiladelphia.com"  ----  Details: "Error Status Code: 403"
+Website: "http://brightpink.org"  ----  Details: "Error Status Code: 403"
+Website: "http://kaseya.com"  ----  Details: "Error Status Code: 403"
+Website: "http://catholiccharities-md.org"  ----  Details: "Error Status Code: 403"
+Website: "http://thalys.com"  ----  Details: "Error Status Code: 403"
+Website: "http://commdiginews.com"  ----  Details: "Error Status Code: 403"
+Website: "http://nptrust.org"  ----  Details: "Error Status Code: 403"
+Website: "http://condusiv.com"  ----  Details: "Error Status Code: 403"
+Website: "http://bancroft.org"  ----  Details: "Error Status Code: 403"
+Website: "http://oregonfoodbank.org"  ----  Details: "Error Status Code: 403"
+Website: "http://chegg.com"  ----  Details: "Error Status Code: 403"
+Website: "http://bluesnap.com"  ----  Details: "Error Status Code: 403"
+Website: "http://koshertoday.com"  ----  Details: "Error Status Code: 403"
+Website: "http://tonygentilcore.com"  ----  Details: "Error Status Code: 403"
+Website: "http://corel.com"  ----  Details: "Error Status Code: 502"
+Website: "http://chickcorea.com"  ----  Details: "Error Status Code: 403"
+Website: "http://colorschemedesigner.com"  ----  Details: "Error Status Code: 406"
+Website: "http://burl.co"  ----  Details: "Error Status Code: 404"
+Error Type 3 (some are also bot detection)
+Website: "http://chanel.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://copilotlive.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://kia.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://trb.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://oshkosh.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://natgeotv.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://bannerflow.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://crypto.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://civilization.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://copilotgps.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://olehenriksen.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://belmond.com"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://boards2go.com"  ----  Details: "Failed to find desired javascript object in Onetrust consent script."
+Website: "http://nas.edu"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Website: "http://kennedykrieger.org"  ----  Details: "Variant 2: Could not find OneTrust javascript url in any tag."
+Error Type 4
+Error Type 5
+Error Type 6
+Error Type 7
+Website: "http://transition.com"  ----  Details: "SSL Certificate issue encountered when connecting to http://transition.com. -- Details: HTTPSConnectionPool(host='www.transition.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1108)')))"
+Error Type 8
