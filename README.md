@@ -1,6 +1,6 @@
-# CookieBlock-Crawler-Prototype
+# CookieBlock Consent Label Webcrawler -- Prototype
 
-Prototype variant of the CookieBlock consent label crawler.
+Prototype variant of the CookieBlock consent label webcrawler.
 
 Using a list of input domains, crawls websites that use specific Consent Management Platforms to 
 retrieve the declared purpose of cookies and other tracking technologies. This includes the given
@@ -99,3 +99,19 @@ Each cookie is assigned to one of the following purpose classes:
 If a cookie has multiple purposes assigned, the tool will generally assign the less 
 privacy-preserving class.
 
+# Credits and License
+
+Copyright (c) 2021, Dino Bollinger
+
+This project is released under the BSD 3-clause license, see the included LICENSE file.
+
+This webcrawler was created as part of a master thesis on GDPR Compliance, and is part of a 
+series of repositories for the CookieBlock browser extension:
+
+TODO
+
+Thanks go to:
+* Karel Kubicek
+* Dr. Carlos Cotrini
+* Prof. Dr. David Basin
+* The Institute of Information Security at ETH Zürich
