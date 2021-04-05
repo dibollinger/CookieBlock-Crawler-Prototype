@@ -1,4 +1,4 @@
-# Prototype Consent Label Webcrawler -- for CookieBlock
+# Prototype: Cookie Consent Label Crawler
 
 This is a variant of the cookie consent label webcrawler that was used for CookieBlock. It is fully functional and contains the main components of the final crawler, which includes the targeting of the Cookiebot, OneTrust and Termly CMP data. However, it is implemented using only Selenium, works sequentially and not in parallel, and does not collect the cookie data itself -- only the cookie consent data.
 
