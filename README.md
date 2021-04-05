@@ -119,6 +119,7 @@ __Related Repositories:__
 * Final Crawler: https://github.com/dibollinger/CookieBlock-Consent-Crawler
 * Cookie Classifier: https://github.com/dibollinger/CookieBlock-Consent-Classifier
 * Violation Detection & More: https://github.com/dibollinger/CookieBlock-Other-Scripts 
+* Collected Data: https://drive.google.com/drive/folders/1P2ikGlnb3Kbb-FhxrGYUPvGpvHeHy5ao
 
 __Thesis Supervision and Assistance:__
 * Karel Kubicek
