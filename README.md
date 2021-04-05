@@ -50,8 +50,8 @@ following table:
 
 
 ## Repository Contents
-
 The repository contains the following subfolders and scripts:
+
     ./database         -- Contains the SQL database schema.
     ./documentation    -- Documentation on how data can be extracted from the Cookiebot and OneTrust CMPs. Also contains analysis of a test run of the crawler.
     ./domain_sources   -- A list of example domains to crawl, sourced from BuiltWith. High likelihood to contain one of the three CMPs.
