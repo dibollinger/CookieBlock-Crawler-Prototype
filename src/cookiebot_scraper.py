@@ -1,4 +1,4 @@
-# Author: Dino Bollinger
+# Copyright (C) 2021 Dino Bollinger, ETH Zürich, Information Security Group
 # Licensed under BSD 3-Clause License, see included LICENSE file
 """
 Cookiebot Scraper: This file defines the src used for the Cookiebot Consent Management Provider.
@@ -247,8 +247,8 @@ class CookiebotScraper(BaseScraper):
                 cookies = literal_eval(matchobj.group(1))
                 cookie_count += len(cookies)
                 for c in cookies:
-                    self.collect_cookie_dat(name=c[0], domain=c[1], path="/", purpose=c[2],
-                                            cat_name=catname, cat_id=cat_id, type=c[5])
+                    self.collect_cookie_dat(site_url=url, name=c[0], domain=c[1], path="/",
+                                            purpose=c[2], cat_name=catname, cat_id=cat_id, type=c[5])
 
         # In case any unexpected issues occur, handle them here and output a debug js
         except Exception as ex:

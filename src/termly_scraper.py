@@ -1,4 +1,4 @@
-# Author: Dino Bollinger
+# Copyright (C) 2021 Dino Bollinger, ETH Zürich, Information Security Group
 # Licensed under BSD 3-Clause License, see included LICENSE file
 """
 Termly Scraper: This file defines the src used for the Termly Consent Management Provider.
@@ -153,9 +153,10 @@ class TermlyScraper(BaseScraper):
 
 
 
-    def parse_termly_cookie_json(self, cookie_dict) -> Tuple[CrawlState, str]:
+    def parse_termly_cookie_json(self, url:str, cookie_dict) -> Tuple[CrawlState, str]:
         """
         Parse the cookies json dictionary and retrieve cookie data + labels.
+        :param url: URL of the website that was targeted during the crawl
         :param cookie_dict: dict from transformed JSON
         :return: crawl state, report
         """
@@ -201,7 +202,7 @@ class TermlyScraper(BaseScraper):
                         # value = cookie["value"] if "value" in cookie else None
                         # service = cookie["service"] if "service" in cookie else None
                         # service_policy_link = cookie["service_policy_link"] if "service_policy_link" in cookie else None
-                        self.collect_cookie_dat(name, domain, "/", catname, cat_id, purpose, tracker_type)
+                        self.collect_cookie_dat(url, name, domain, "/", catname, cat_id, purpose, tracker_type)
             except Exception as ex:
                 self.debug_dump_dict(debug_out, cookie_dict)
                 report = f"Unexpected error while extracting Cookies from Termly Dict: : {type(ex)} {ex}"
@@ -231,6 +232,6 @@ class TermlyScraper(BaseScraper):
             return False
         logger.info("Found cookie json dict")
 
-        state, report = self.parse_termly_cookie_json(cookies_dict)
+        state, report = self.parse_termly_cookie_json(url, cookies_dict)
         self.update_crawl_stats(url, state, report)
         return state == CrawlState.SUCCESS

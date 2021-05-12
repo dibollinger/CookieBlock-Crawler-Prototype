@@ -1,5 +1,5 @@
 #!/bin/python3
-# Author: Dino Bollinger
+# Copyright (C) 2021 Dino Bollinger, ETH Zürich, Information Security Group
 # Licensed under BSD 3-Clause License, see included LICENSE file
 """
 Cookie-Consent Category Scraper
@@ -19,11 +19,11 @@ Usage:
     run_scraper.py --help
 
 Options:
-    -u --url <u>          URL string to crawl.
-    -p --pkl <fpkl>       File path to pickled list of URLs to parse.
-    -f --file <fpath>     Path to file containing one URL per line.
-    -a --assume_http      Assume input is in form of domains, to be accessed via HTTP protocol.
-    --dbname <DB>         Name of the output database, if differs from default. [default: cookiedat.sqlite]
+    -u --url <u>          A single URL string to target. Can specify multiple.
+    -p --pkl <fpkl>       One or more file path to pickled list of URLs to parse.
+    -f --file <fpath>     One or more paths to files containing one URL per line.
+    -a --assume_http      Assume domains are provided without 'HTTP://' prefix, append prefix where necessary.
+    --dbname <DB>         Name of the output database. [default: cookiedat.sqlite]
 
     --loglevel <LEVEL>    Set level for logger [default: INFO]
     -h --help             Display this help screen.
@@ -42,8 +42,6 @@ from src.base_scraper import BaseScraper
 from src.cookiebot_scraper import CookiebotScraper
 from src.onetrust_scraper import OneTrustScraper
 from src.termly_scraper import TermlyScraper
-
-DB_PATH = "./database"
 
 logger = logging.getLogger("main")
 output_path = f"./scrape_out_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
@@ -82,7 +80,7 @@ def retrieve_urls(cargs: Dict) -> Set[str]:
     """
     Retrieve URLs to be crawled from arguments.
     :param cargs: docopt arguments
-    :return: set of unique urls, prefixed with HTTP schema if needed
+    :return: set of unique urls, prefixed with HTTP prefix if needed
     """
     sites: Set[str] = set()
 
@@ -115,7 +113,7 @@ def retrieve_urls(cargs: Dict) -> Set[str]:
         url = copy.pop()
         if not url or len(url.strip()) == 0 or url.startswith("#"):
             sites.remove(url)
-        elif not url.startswith("http"):
+        elif not url.lower().startswith("http://") and not url.lower().startswith("https://"):
             sites.remove(url)
             if cargs["--assume_http"]:
                 sites.add("http://" + url)
@@ -203,7 +201,7 @@ def main():
 
     # Output collected data into a SQLite database
     sql_db = os.path.join(output_path, cargs["--dbname"])
-    scraper.setup_database(sql_db, "./database/schema.sql")
+    scraper.setup_database(sql_db, "./schema/schema.sql")
     scraper.store_cookies_in_db()
     scraper.close_database()
 

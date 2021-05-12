@@ -1,11 +1,11 @@
-# Author: Dino Bollinger
+# Copyright (C) 2021 Dino Bollinger, ETH Zürich, Information Security Group
 # Licensed under BSD 3-Clause License, see included LICENSE file
 """
 This script stores common classes and functions used for both types of crawler.
 - Class CrawlState defines the different success/error states that can result from a crawl.
 - Class CookieCategory defines uniform cookie consent categories.
 - Class BaseScraper defines the base class for all src implementations to inherit from,
-  and defines a number of useful utility functions to use, including the database handling
+  and defines a number of useful utility functions to use, including the schema handling
   and the Selenium webdriver setup.
 """
 
@@ -91,7 +91,7 @@ class BaseScraper(ABC):
         self.database_cookie_data: List[Tuple] = list()
         self.cookie_labels: Dict = dict()
 
-        # sqlite database connection to persist the cookie data
+        # sqlite schema connection to persist the cookie data
         self.db: Optional[sqlite3.Connection] = None
 
 
@@ -359,9 +359,8 @@ class BaseScraper(ABC):
             for name, labels in self.cookie_labels.items():
                 fd.write(f"{name}  {'  '.join(labels)}\n")
 
-
-    def collect_cookie_dat(self, name: str, domain: str, path: str, cat_name: str,
-                           cat_id: int, purpose=None, type=None):
+    def collect_cookie_dat(self, site_url: str, name: str, domain: str, path: str,
+                           cat_name: str, cat_id: int, purpose=None, type=None):
         """
         Collect the provided data on the cookie inside the class-internal datastructures.
         This data will be output at the end of the crawl.
@@ -374,7 +373,7 @@ class BaseScraper(ABC):
         else:
             self.cookie_labels[cookie_ident] = [cat_name]
 
-        self.database_cookie_data.append((name, domain, path, cat_id, cat_name, purpose, type))
+        self.database_cookie_data.append((site_url, name, domain, path, cat_id, cat_name, purpose, type))
 
 
     @abstractmethod
@@ -389,8 +388,8 @@ class BaseScraper(ABC):
 
     def setup_database(self, sql_db: str, schema: str) -> None:
         """
-        Establish a connection to the provided SQLite database path
-        :param sql_db: path to sqlite database (folder must exist). Database file will be created if not present.
+        Establish a connection to the provided SQLite schema path
+        :param sql_db: path to sqlite schema (folder must exist). Database file will be created if not present.
         """
         self.db = sqlite3.connect(sql_db)
         c = self.db.cursor()
@@ -401,11 +400,11 @@ class BaseScraper(ABC):
 
     def store_cookies_in_db(self) -> None:
         """
-        Persist the currently collected cookie data in the sqlite database as a single batch commit.
+        Persist the currently collected cookie data in the sqlite schema as a single batch commit.
         Empties the raw_cookie_data array.
         """
-        command = "INSERT INTO consent_data (name, domain, path, cat_id, cat_name, purpose, type) " \
-                  "VALUES (?,?,?,?,?,?,?);"
+        command = "INSERT INTO consent_data (site_url, name, domain, path, cat_id, cat_name, purpose, type) " \
+                  "VALUES (?,?,?,?,?,?,?,?);"
         self.db.executemany(command, self.database_cookie_data)
         self.db.commit()
         self.database_cookie_data = []
@@ -413,7 +412,7 @@ class BaseScraper(ABC):
 
     def close_database(self) -> None:
         """
-        Close the database connection and commit any pending transactions.
+        Close the schema connection and commit any pending transactions.
         """
         self.db.commit()
         self.db.close()

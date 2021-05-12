@@ -1,4 +1,4 @@
-# Author: Dino Bollinger
+# Copyright (C) 2021 Dino Bollinger, ETH Zürich, Information Security Group
 # Licensed under BSD 3-Clause License, see included LICENSE file
 """
 OneTrust Scraper: Defines the src used for OneTrust's various consent management providers.
@@ -170,11 +170,13 @@ class OneTrustScraper(BaseScraper):
             return [], CrawlState.PARSE_ERROR, f"Key Error on {target_url} -- Details: {kex}"
 
 
-    def variantA_get_and_parse_json(self, domain_url:str, dd_id:str, ruleset_ids: List[str], sess: requests.Session) -> Tuple[int, CrawlState, str]:
+    def variantA_get_and_parse_json(self, website_url, domain_url:str, dd_id:str, ruleset_ids: List[str],
+                                    sess: requests.Session) -> Tuple[int, CrawlState, str]:
         """
         Retrieve and parse the json files from the domain URL storing the cookie categories.
         Currently supports only english language json.
         The raw cookie data will be stored internally and can later be persisted to disk.
+        :param website_url: URL of the website that was targetted.
         :param domain_url: Domain on which to access the consent data json
         :param dd_id: Data domain ID, previously extracted before retrieving the ruleset ids.
         :param ruleset_ids: List of ids extracted from the ruleset json.
@@ -209,14 +211,14 @@ class OneTrustScraper(BaseScraper):
 
                     firstp_cookies = g_contents["FirstPartyCookies"]
                     for c in firstp_cookies:
-                        self.collect_cookie_dat(name=c["Name"], domain=c["Host"], path="/",
+                        self.collect_cookie_dat(site_url=website_url, name=c["Name"], domain=c["Host"], path="/",
                                                 purpose=c["description"], cat_id=cat_id, cat_name=cat_name, type=None)
                         cookie_count += 1
 
                     thirdp_cookies = g_contents["Hosts"]
                     for host_dat in thirdp_cookies:
                         for c in host_dat["Cookies"]:
-                            self.collect_cookie_dat(name=c["Name"], domain=c["Host"], path="/",
+                            self.collect_cookie_dat(site_url=website_url, name=c["Name"], domain=c["Host"], path="/",
                                                     purpose=c["description"], cat_id=cat_id, cat_name=cat_name, type=None)
                             cookie_count += 1
 
@@ -314,9 +316,10 @@ class OneTrustScraper(BaseScraper):
             return None, CrawlState.UNKNOWN, f"Unexpected error while parsing OneTrust javascript: : {type(ex)} {ex}"
 
 
-    def variantB_extract_cookies_from_dict(self, consent_data: Dict[str, Any]) -> Tuple[int, CrawlState, str]:
+    def variantB_extract_cookies_from_dict(self, website_url:str, consent_data: Dict[str, Any]) -> Tuple[int, CrawlState, str]:
         """
         Using the cookie data dictionary from the previous step, extract the data contained within and store it.
+        :param website_url: URL of the target website.
         :param consent_data: Cookie data dictionary extracted from previous step.
         :return: number of cookies extracted, crawl state, report
         """
@@ -338,7 +341,7 @@ class OneTrustScraper(BaseScraper):
                     cname = cookie_dat["Name"] # not null
                     chost = cookie_dat["Host"] # not null
                     cdesc = cookie_dat["description"] if "description" in cookie_dat else None
-                    self.collect_cookie_dat(name=cname, domain=chost, path="/",
+                    self.collect_cookie_dat(site_url=website_url, name=cname, domain=chost, path="/",
                                             purpose=cdesc, cat_id=cat_id, cat_name=cat_name, type=None)
                     cookie_count += 1
 
@@ -383,7 +386,7 @@ class OneTrustScraper(BaseScraper):
             logger.debug(f"{rs_ids}")
 
             # Variant A, Part 3: For each ruleset id, retrieve cookie json
-            cookie_count, state, report = self.variantA_get_and_parse_json(domain_url, dd_id, rs_ids, sess)
+            cookie_count, state, report = self.variantA_get_and_parse_json(url, domain_url, dd_id, rs_ids, sess)
             if state != CrawlState.SUCCESS:
                 raise VariantFailedException(state, report)
             else:
@@ -410,7 +413,7 @@ class OneTrustScraper(BaseScraper):
             logger.debug(f"Successfully retrieved OneTrust Consent javascript object data.")
 
             # Variant B, Part 3: Extract the cookie values from raw data
-            cookie_count, state, report = self.variantB_extract_cookies_from_dict(data_dict)
+            cookie_count, state, report = self.variantB_extract_cookies_from_dict(url, data_dict)
             if state != CrawlState.SUCCESS:
                 raise VariantFailedException(state, report)
             else:
