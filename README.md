@@ -1,63 +1,39 @@
-# Prototype: Cookie Consent Label Crawler
+# Cookie Consent Label Webcrawler - Prototype
 
-This is a variant of the cookie consent label webcrawler that was used for CookieBlock. It is fully functional and contains the main components of the final crawler, which includes the targeting of the Cookiebot, OneTrust and Termly CMP data. However, it is implemented using only Selenium, works sequentially and not in parallel, and does not collect the cookie data itself -- only the cookie consent data.
+* [Introduction](#introduction)
+* [Description](#description)
+* [Installation](#installation)
+    * [Requirements](#requirements)
+    * [Usage](#usage)
+    * [Options](#options)
+* [Outputs](#outputs)
+* [Repository Contents](#repository-contents)
+* [Credits](#credits)
+* [License](#license)
+    
 
-Using a list of input domains, the crawler crawls websites that use specific Consent Management Platforms to 
-retrieve the declared purpose of cookies and other tracking technologies. This includes the given description 
-of each entry as well. As mentioned, the cookies themselves are not gathered by this crawl.
+## Introduction
 
-This was the original implementation before OpenWPM was used. There is also a number of changes between this variant and the final release that may make it less effective at extracting data. The main purpose of this repository is to release the novel components of the crawler independently under a non-GPL license. 
+CookieBlock is a browser extension developed by researchers at ETH Zürich, 
+which automatically enforces GDPR cookie consent preferences of the user without 
+having to rely on the website to respect the user's privacy. The extension is 
+available for all major browsers. For more information and a link to add-on stores, 
+see the following repository: 
 
-See also: https://github.com/dibollinger/CookieBlock-Consent-Crawler
+https://github.com/dibollinger/CookieBlock
 
-Licensed under BSD 3-clause. Tested with Python 3.8 and Python 3.9.
-
-## Usage
-    run_scraper.py (cookiebot|onetrust|termly) (--url <u> | --pkl <fpkl> | --file <fpath>)... [--assume_http] [--loglevel <LEVEL>] [--dbname <DB>]
-    run_scraper.py --help
-
-### Options:
-    cookiebot:            Try to extract Cookiebot CMP data.
-    onetrust:             Try to extract OneTrust CMP data. 
-    cookiebot:            Try to extract Termly CMP data.
-    -u --url <u>          URL string to target during the crawl. Can specify multiple.
-    -p --pkl <fpkl>       File path to pickled list of URLs to parse. Can specify multiple.
-    -f --file <fpath>     Path to file containing one URL per line. Can specify multiple.
-    -a --assume_http      Attach http protocol to domain if not present already.
-    --dbname <DB>         Name of the output database, if differs from default. [default: cookiedat.sqlite]
-
-    --loglevel <LEVEL>    Set the level for the logger [default: INFO]
-    -h --help             Display this help screen.
-
-### Outputs:
-
-For each crawl, the script produces a folder called `scrape_out_<timestamp>` which contains 
-the collected CMP data and statistics on each type of error with detailed description.
-
-The consent data is stored in a SQLite database called `cookiedat.sqlite` which contains the
-following table:
-
-    TABLE consent_data
-        id INTEGER PRIMARY KEY,         -- unique record identifier
-        name TEXT NOT NULL,             -- name of the cookie as specified in the CMP
-        domain TEXT NOT NULL,           -- origin domain of the cookie as specified in the CMP
-        path TEXT DEFAULT "/",          -- path of the cookie in the CMP (rarely listed)
-
-        cat_id INTEGER NOT NULL,        -- Discrete internal cookie category identity. (0 == Necessary; 1 == Functional; 2 == Analytics; 3 == Advertising; 4 == Uncategorized; -1 == Unknown)
-        cat_name VARCHAR(256) NOT NULL, -- Given name of the category. May differ for different CMPs.
-        purpose TEXT,                   -- Given purpose for the cookie or tracking technology. May be empty.
-        type VARCHAR(256)               -- Specific for Cookiebot, the type of tracking technology used. (0 == HTTP cookies; 1 == Javascript Cookies; 4 == Tracking Pixels)
+To classify cookies, CookieBlock uses a gradient-boosted tree classifier. To 
+train this classifier, it is necessary to retrieve a ground truth of category labels 
+for the training samples. This is the task of the tool in this repository. It is a 
+prototype implementation of a crawler that attempts to retrieve cookie labels by scraping 
+data from Consent Management Platforms (CMPs).
 
 This repository is a predecessor of the OpenWPM-based crawler implementation found at:
 
-## Repository Contents
-The repository contains the following subfolders and scripts:
+https://github.com/dibollinger/CookieBlock-Consent-Crawler
 
-    ./database         -- Contains the SQL database schema.
-    ./documentation    -- Documentation on how data can be extracted from the Cookiebot and OneTrust CMPs. Also contains analysis of a test run of the crawler.
-    ./domain_sources   -- A list of example domains to crawl, sourced from BuiltWith. High likelihood to contain one of the three CMPs.
-    ./src              -- Source code files for the crawler, written in Python.
-    ./run_scraper.py   -- Command line script to run the crawler, with usage described above.
+It is released here separately under the BSD 3-clause license such that the relevant
+crawling logic can potentially be reused without having to bother with the GPL license.
 
 ## Description
 
@@ -94,9 +70,11 @@ Each cookie is assigned to one of the following purpose classes:
     for advertising and tracking purposes. Often this also involves the collection
     of sensitive personal data, which may be sold to other interested parties. 
     This is generally the category of cookies where the loss of privacy is the largest
-    concern.
-* __Uncategorized__: Some CMPs leave cookies uncategorized and without a specific
-    description. This category catches all such declarations.
+    concern. Depending on what data is being gathered, these cookies can identify a 
+    visitor's habits, interests, interests both leisurly and political, as well as 
+    name and identity, geographical location and social standing.
+* __Uncategorized__: Some CMPs leave cookies uncategorized. This category catches
+    all such declarations.
 * __Unknown__: Some categories cannot be easily be assigned to any of the above categories. 
     This includes category labels such as "Information Storage and Access" or "Content Delivery" 
     as these labels state little about how the cookie is intended to be used. In addition,
@@ -106,23 +84,81 @@ Each cookie is assigned to one of the following purpose classes:
 If a cookie has multiple purposes assigned, the tool will generally assign the less 
 privacy-preserving class.
 
-# License
+In addition to the code, this repository also includes an informal analysis of how
+the CookieBot and OneTrust CMPs store the relevant cookie consent data, and what 
+information can be retrieved.
 
 The code in this repository is licensed under BSD 3-clause. 
 
 ## Installation
 
-----
+No special setup is needed, simply install the required Python libraries (either as virtual environment or globally)
+and execute the script `run_scraper.py` with the required arguments.
 
-The scripts in this repository were created as part of the master thesis *"Analyzing Cookies Compliance with the GDPR*, 
-and is part of a series of repositories for the __CookieBlock__ browser extension.
+### Requirements
 
-__Related Repositories:__
-* CookieBlock: https://github.com/dibollinger/CookieBlock
-* Final Crawler: https://github.com/dibollinger/CookieBlock-Consent-Crawler
-* Cookie Classifier: https://github.com/dibollinger/CookieBlock-Consent-Classifier
-* Violation Detection & More: https://github.com/dibollinger/CookieBlock-Other-Scripts 
-* Collected Data: https://drive.google.com/drive/folders/1P2ikGlnb3Kbb-FhxrGYUPvGpvHeHy5ao
+* Tested with __Python 3.8__ and __3.9__
+* Required third-party libraries:
+   * requests (tested w/ version: 2.25.1) 
+   * beautifulsoup4 (4.9.3)
+   * docopt (0.6.2)
+   * selenium (3.141)
+   * Js2Py (0.70)
+
+### Usage
+    run_scraper.py (cookiebot|onetrust|termly) (--url <u> | --pkl <fpkl> | --file <fpath>)... [--assume_http] [--loglevel <LEVEL>] [--dbname <DB>]
+    run_scraper.py --help
+
+The first required argument determines which CMP to look for. This must be one of the following:
+* cookiebot : Test for the Cookiebot CMP on the provided domains.
+* onetrust : Test for OneTrust, OptAnon and CookiePro CMP on the given domains. These all implement the same backend.
+* termly : Test for the Termly CMP on the given domains.
+
+The second required argument determines the urls to crawl. These must be given in HTTP protocol format.
+
+#### Options
+    -u --url <u>          A single URL string to target. Can specify multiple.
+    -p --pkl <fpkl>       File path to pickled list of URLs.
+    -f --file <fpath>     Path to file containing one URL per line.
+    -a --assume_http      Assume domains are provided without 'HTTP://' prefix, append prefix where necessary.
+    --dbname <DB>         Name of the output database. Default is: "cookiedat.sqlite"
+
+    --loglevel <LEVEL>    Set level for logger [default: INFO]
+    -h --help             Display this help screen.
+
+## Outputs:
+
+For each crawl, the script produces a folder called `scrape_out_<timestamp>` which contains 
+the collected CMP data and statistics on each type of error with detailed descriptions of each error.
+
+The consent data is stored in a SQLite database (called `cookiedat.sqlite` by default) which 
+contains the following table:
+
+    TABLE consent_data
+        id INTEGER PRIMARY KEY,         -- unique identifier
+        site_url TEXT NOT NULL,         -- site that was targetted in the crawl
+        name TEXT NOT NULL,             -- name as specified in the CMP
+        domain TEXT NOT NULL,           -- domain as specified in the CMP
+        path TEXT DEFAULT "/",          -- path in the CMP (rarely listed)
+
+        cat_id INTEGER NOT NULL,        -- Identifies the category
+        cat_name VARCHAR(256) NOT NULL, -- Name of the category. May vary for the same ID.
+        purpose TEXT,                   -- Declared purpose of the cookie.
+        type VARCHAR(256)               -- Cookiebot technology type
+
+
+## Repository Contents
+    ./documentation    -- Documentation on Cookiebot, OneTrust and the crawler failure cases.
+    ./domain_sources   -- A list of example domains to crawl, sourced from BuiltWith.
+    ./schema           -- Contains the database schema.
+    ./src              -- Source files for the crawler.
+    ./run_scraper.py   -- Command line script to run the crawler, with usage described above.
+
+## Credits
+This repository was created as part of the master thesis __"Analyzing Cookies Compliance with the GDPR"__, 
+which can be found here:
+
+https://www.research-collection.ethz.ch/handle/20.500.11850/477333
 
 __Thesis Supervision and Assistance:__
 * Karel Kubicek
