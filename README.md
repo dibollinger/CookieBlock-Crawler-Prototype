@@ -10,7 +10,7 @@ This was the original implementation before OpenWPM was used. There is also a nu
 
 See also: https://github.com/dibollinger/CookieBlock-Consent-Crawler
 
-Licensed under BSD 3-clause. Tested with Python 3.8
+Licensed under BSD 3-clause. Tested with Python 3.8 and Python 3.9.
 
 ## Usage
     run_scraper.py (cookiebot|onetrust|termly) (--url <u> | --pkl <fpkl> | --file <fpath>)... [--assume_http] [--loglevel <LEVEL>] [--dbname <DB>]
@@ -48,6 +48,7 @@ following table:
         purpose TEXT,                   -- Given purpose for the cookie or tracking technology. May be empty.
         type VARCHAR(256)               -- Specific for Cookiebot, the type of tracking technology used. (0 == HTTP cookies; 1 == Javascript Cookies; 4 == Tracking Pixels)
 
+This repository is a predecessor of the OpenWPM-based crawler implementation found at:
 
 ## Repository Contents
 The repository contains the following subfolders and scripts:
@@ -60,10 +61,6 @@ The repository contains the following subfolders and scripts:
 
 ## Description
 
-This tool allows the user to scrape websites for cookie consent purposes if 
-the target website makes use of one of the supported Consent Management Platforms.
-Currently supported by the script are Cookiebot, OneTrust and Termly CMPs. 
-
 Due to the GDPR, websites that offer their services to countries in the EU 
 are required to request consent from visitors when the website attempts to 
 store cookies on the visitor's browser. This is commonly accomplished by
@@ -73,6 +70,12 @@ These plugins usually offer consent toggles for the visitor, and sometimes
 display detailed information of the purpose of each cookie present on the website. 
 This crawler specifically targets CMP implementations that display such information,
 for the purpose of gathering a dataset of cookie labels and purposes.
+
+Using a list of input domains, the label crawler scrapes domains in expectation
+that they use specific Consent Management Platform plugin to display cookie banners
+to users. Currently supported CMPs are __Cookiebot__, __OneTrust__ and __Termly__.
+If the CMP is found, specific string identifiers are extracted from the website
+to then retrieve the externally hosted cookie label information.
 
 Each cookie is assigned to one of the following purpose classes:
 
@@ -97,17 +100,17 @@ Each cookie is assigned to one of the following purpose classes:
 * __Unknown__: Some categories cannot be easily be assigned to any of the above categories. 
     This includes category labels such as "Information Storage and Access" or "Content Delivery" 
     as these labels state little about how the cookie is intended to be used. In addition,
-    some CMP use language-specific declarations. This crawler only supports English language
-    categories.
+    some CMP use language-specific declarations. This crawler only supports English 
+    language categories.
 
 If a cookie has multiple purposes assigned, the tool will generally assign the less 
 privacy-preserving class.
 
 # License
 
-Copyright (c) 2021, Dino Bollinger
+The code in this repository is licensed under BSD 3-clause. 
 
-This project is released under the BSD 3-clause license, see the included LICENSE file.
+## Installation
 
 ----
 
@@ -125,4 +128,21 @@ __Thesis Supervision and Assistance:__
 * Karel Kubicek
 * Dr. Carlos Cotrini
 * Prof. Dr. David Basin
-* The Institute of Information Security at ETH Zürich
+* Information Security Group at ETH Zürich
+
+
+See also the following repositories for other components that were developed as part of the thesis:
+
+* __CookieBlock Extension:__ https://github.com/dibollinger/CookieBlock
+* __OpenWPM-based Consent Crawler:__ https://github.com/dibollinger/CookieBlock-Consent-Crawler
+* __Cookie Classifier:__ https://github.com/dibollinger/CookieBlock-Consent-Classifier
+* __Violation Detection:__ https://github.com/dibollinger/CookieBlock-Other-Scripts
+* __Collected Data:__ https://drive.google.com/drive/folders/1P2ikGlnb3Kbb-FhxrGYUPvGpvHeHy5ao
+
+## License
+
+__Copyright (c) 2021 Dino Bollinger, Department of Computer Science at ETH Zürich, Information Security Group__
+
+__With help from Karel Kubicek, Dr. Carlos Cotrini and Prof. Dr. David Basin.__
+
+This project is released under the BSD 3-clause license, see the included LICENSE file.
