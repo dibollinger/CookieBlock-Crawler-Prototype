@@ -211,15 +211,17 @@ class OneTrustScraper(BaseScraper):
 
                     firstp_cookies = g_contents["FirstPartyCookies"]
                     for c in firstp_cookies:
+                        cdesc = c["description"] if "description" in c else None
                         self.collect_cookie_dat(site_url=website_url, name=c["Name"], domain=c["Host"], path="/",
-                                                purpose=c["description"], cat_id=cat_id, cat_name=cat_name, type=None)
+                                                purpose=cdesc, cat_id=cat_id, cat_name=cat_name, type=None)
                         cookie_count += 1
 
                     thirdp_cookies = g_contents["Hosts"]
                     for host_dat in thirdp_cookies:
                         for c in host_dat["Cookies"]:
+                            cdesc = c["description"] if "description" in c else None
                             self.collect_cookie_dat(site_url=website_url, name=c["Name"], domain=c["Host"], path="/",
-                                                    purpose=c["description"], cat_id=cat_id, cat_name=cat_name, type=None)
+                                                    purpose=cdesc, cat_id=cat_id, cat_name=cat_name, type=None)
                             cookie_count += 1
 
             except (AttributeError, KeyError) as ex:
