@@ -166,14 +166,12 @@ __Thesis Supervision and Assistance:__
 * Prof. Dr. David Basin
 * Information Security Group at ETH Zürich
 
-
 See also the following repositories for other components that were developed as part of the thesis:
-
-* __CookieBlock Extension:__ https://github.com/dibollinger/CookieBlock
-* __OpenWPM-based Consent Crawler:__ https://github.com/dibollinger/CookieBlock-Consent-Crawler
-* __Cookie Classifier:__ https://github.com/dibollinger/CookieBlock-Consent-Classifier
-* __Violation Detection:__ https://github.com/dibollinger/CookieBlock-Other-Scripts
-* __Collected Data:__ https://drive.google.com/drive/folders/1P2ikGlnb3Kbb-FhxrGYUPvGpvHeHy5ao
+* [CookieBlock Browser Extension](https://github.com/dibollinger/CookieBlock)
+* [OpenWPM-based Consent Crawler](https://github.com/dibollinger/CookieBlock-Consent-Crawler)
+* [Cookie Consent Classifier](https://github.com/dibollinger/CookieBlock-Consent-Classifier)
+* [Violation Detection](https://github.com/dibollinger/CookieBlock-Other-Scripts)
+* [Collected Data](https://drive.google.com/drive/folders/1P2ikGlnb3Kbb-FhxrGYUPvGpvHeHy5ao)
 
 ## License
 
