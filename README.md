@@ -176,7 +176,7 @@ See also the following repositories for other components that were developed as 
 * [OpenWPM-based Consent Crawler](https://github.com/dibollinger/CookieBlock-Consent-Crawler)
 * [Cookie Consent Classifier](https://github.com/dibollinger/CookieBlock-Consent-Classifier)
 * [Violation Detection](https://github.com/dibollinger/CookieBlock-Other-Scripts)
-* [Collected Data](https://drive.google.com/drive/folders/1P2ikGlnb3Kbb-FhxrGYUPvGpvHeHy5ao)
+* [Collected Data](https://doi.org/10.5281/zenodo.5838646)
 
 ## License
 
