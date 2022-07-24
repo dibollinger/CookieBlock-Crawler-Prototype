@@ -70,7 +70,11 @@ class TermlyScraper(BaseScraper):
                         if uuid and uuid_pattern.match(uuid):
                             return uuid
                         else:
-                            logger.warning("Found termly embed banner script tag without a properly formatted id attribute.")
+                            uuid = e.get_attribute("data-website-uuid")
+                            if uuid and uuid_pattern.match(uuid):
+                                return uuid
+                            else:
+                                logger.warning("Found termly embed banner script tag without an id attribute.")
                 except StaleElementReferenceException:
                     logger.warning("Stale element exception while looking through script tags. Continuing with next one...")
                     continue
