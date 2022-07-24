@@ -36,19 +36,25 @@ logger = logging.getLogger("main.BaseScraper.OneTrustScraper")
 
 # Base patterns required for Variant A
 cookielaw_base_pattern = re.compile("(https://cdn\\.cookielaw\\.org)")
+cmp_cookielaw_base_pattern = re.compile("(https://cmp-cdn\\.cookielaw\\.org)")
 optanon_base_pattern = re.compile("(https://optanon\\.blob\\.core\\.windows\\.net)")
 cookiecdn_base_pattern = re.compile("(https://cookie-cdn\\.cookiepro\\.com)")
 cookiepro_base_pattern = re.compile("(https://cookiepro\\.blob\\.core\\.windows\\.net)")
+ukwest_base_pattern = re.compile("(https://cdn-ukwest\\.onetrust\\.com)")
 
-base_patterns = [cookielaw_base_pattern, optanon_base_pattern, cookiecdn_base_pattern, cookiepro_base_pattern]
+base_patterns = [cookielaw_base_pattern, cmp_cookielaw_base_pattern, optanon_base_pattern, cookiecdn_base_pattern,
+                 cookiepro_base_pattern, ukwest_base_pattern]
 
 # Javascript direct links, required for Variant B
 v2_cookielaw_pattern = re.compile("https://cdn\\.cookielaw\\.org/consent/" + uuid_pattern.pattern + "[a-zA-Z0-9_-]*\\.js")
+v2_cmp_cookielaw_pattern = re.compile("https://cmp-cdn\\.cookielaw\\.org/consent/" + uuid_pattern.pattern + "[a-zA-Z0-9_-]*\\.js")
 v2_optanon_pattern = re.compile("https://optanon\\.blob\\.core\\.windows\\.net/consent/" + uuid_pattern.pattern + "[a-zA-Z0-9_-]*\\.js")
 v2_cookiepro_cdn_pattern = re.compile("https://cookie-cdn\\.cookiepro\\.com/consent/" + uuid_pattern.pattern + "[a-zA-Z0-9_-]*\\.js")
 v2_cookiepro_blob_pattern = re.compile("https://cookiepro\\.blob\\.core\\.windows\\.net/consent/" + uuid_pattern.pattern + "[a-zA-Z0-9_-]*\\.js")
+v2_ukwest_pattern = re.compile("https://cdn-ukwest\\.onetrust\\.com/consent/" + uuid_pattern.pattern + "[a-zA-Z0-9_-]*\\.js")
 
-variantB_patterns = [v2_cookielaw_pattern, v2_optanon_pattern, v2_cookiepro_cdn_pattern, v2_cookiepro_cdn_pattern]
+variantB_patterns = [v2_cookielaw_pattern, v2_cmp_cookielaw_pattern, v2_optanon_pattern, v2_cookiepro_cdn_pattern,
+                     v2_cookiepro_cdn_pattern, v2_ukwest_pattern]
 
 
 class VariantFailedException(Exception):
@@ -102,7 +108,7 @@ class OneTrustScraper(BaseScraper):
                 try:
                     # Find a script tag with the  data-domain-script attribute
                     dd_id = str(e.get_attribute("data-domain-script"))
-                    if (dd_id is not None) and uuid_pattern.match(str(dd_id)):
+                    if (dd_id is not None) and (uuid_pattern.match(str(dd_id)) or str(dd_id) == "center-center-default-stack-global-ot"):
                         source_stub = e.get_attribute("src")
                         if source_stub is None:
                             logger.warning(f"Found a script tag with the data-domain attribute, but no URL? Script ID: {dd_id}")
@@ -160,7 +166,7 @@ class OneTrustScraper(BaseScraper):
                     languageset = r["LanguageSwitcherPlaceholder"]
                     if languageset is None:
                         continue
-                    if "en" in languageset.values():
+                    if any(lstring in languageset.values() for lstring in ["en", "en-GB", "en-US"]):
                         ids.append(r["Id"])
 
             if len(ids) == 0:
@@ -186,8 +192,19 @@ class OneTrustScraper(BaseScraper):
         """
         cookie_count = 0
         for i in ruleset_ids:
-            curr_ruleset_url = f"{domain_url}/consent/{dd_id}/{i}/en.json"
-            cc_json, state, report = self.static_get_request(curr_ruleset_url, session=sess, verify_ssl=True)
+            ## bandaid fix
+            lang_strings = ["en", "en-gb", "en-us"]
+
+            ## Init -- bandaid fix
+            cc_json = None
+            curr_ruleset_url = "-"
+            report = "Did not check any language strings?"
+            state = CrawlState.UNKNOWN
+
+            while len(lang_strings) > 0 and state != CrawlState.SUCCESS:
+                lstring = lang_strings.pop(0)
+                curr_ruleset_url = f"{domain_url}/consent/{dd_id}/{i}/{lstring}.json"
+                cc_json, state, report = self.static_get_request(curr_ruleset_url, session=sess, verify_ssl=True)
 
             if state != CrawlState.SUCCESS:
                 logger.error(f"Failed to retrieve ruleset at: {curr_ruleset_url}")
@@ -199,7 +216,7 @@ class OneTrustScraper(BaseScraper):
                 json_data = json.loads(cc_json.text)
                 json_body = json_data["DomainData"]
 
-                if "en" in json_body["Language"]["Culture"]:
+                if any(lstring in json_body["Language"]["Culture"] for lstring in ["en", "en-GB", "en-US"]):
                     cat_lookup = category_lookup_en
                 else:
                     logger.warning(f"Unrecognized language in ruleset: {json_body['Language']['Culture']}")
@@ -224,13 +241,16 @@ class OneTrustScraper(BaseScraper):
                             self.collect_cookie_dat(site_url=website_url, name=c["Name"], domain=c["Host"], path="/",
                                                     purpose=cdesc, cat_id=cat_id, cat_name=cat_name, type=None)
                             cookie_count += 1
-
             except (AttributeError, KeyError) as ex:
                 logger.error(f"Could not retrieve an expected attribute from json for ruleset : {curr_ruleset_url}.")
                 logger.error(f"Details: {type(ex)} -- {ex}")
             except json.JSONDecodeError as ex:
                 logger.error(f"Failed to decode json file for ruleset : {curr_ruleset_url}")
                 logger.error(f"Details: {type(ex)} -- {ex}")
+
+            # Only try first ruleset that works
+            if cookie_count > 0:
+                break
 
         if cookie_count == 0:
             logger.error(f"Could not extract any cookies for ddid: {dd_id} and rulesets {ruleset_ids}")
@@ -328,7 +348,6 @@ class OneTrustScraper(BaseScraper):
         """
         cookie_count = 0
         try:
-
             # only support english at this time
             cat_lookup = category_lookup_en
 
