@@ -1,4 +1,5 @@
-# Copyright (C) 2021 Dino Bollinger, ETH Zürich, Information Security Group
+# Copyright (C) 2021-2022 Dino Bollinger
+# Created as part of a master thesis at ETH Zürich, Information Security Group
 # Licensed under BSD 3-Clause License, see included LICENSE file
 """
 This script stores common classes and functions used for both types of crawler.
@@ -26,11 +27,10 @@ import selenium.common.exceptions as selenium_excepts
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver import Firefox
 
-logger = logging.getLogger("main.BaseScraper")
+logger = logging.getLogger("main")
 
-# universal unique identifier pattern
+# universal unique identifier
 uuid_pattern = re.compile("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
-
 
 class CrawlState(IntEnum):
     SUCCESS = 0                # Everything went fine
@@ -46,7 +46,7 @@ class CrawlState(IntEnum):
     MALFORM_RESP = 10          # Response did not have expected format
     NO_COOKIES = 11            # Website didn't have any cookies recorded, despite correct response
     JSON_DECODE_ERROR = 12     # Failed to decode the JSON file for whatever reason
-    UNKNOWN = -1               # Unaccounted for Error. If this occurs, need to extend script to handle it.
+    UNKNOWN = -1               # If this occurs, need to extend script to handle it.
 
 
 class CookieCategory(IntEnum):
@@ -108,7 +108,7 @@ class BaseScraper(ABC):
 
         if state != CrawlState.SUCCESS:
             self._failed_urls.append(url)
-            ## in debug mode, if crawl failed, dump index.html of the site for analysis
+            ## dump index.html of the site for analysis
             # if self._debug_mode:
             #     with open(os.path.join(self._logpath,
             #                           url.replace("/", "_").replace(":", "") + ".html"), 'w') as fd:

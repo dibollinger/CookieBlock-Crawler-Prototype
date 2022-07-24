@@ -1,11 +1,13 @@
 #!/bin/python3
-# Copyright (C) 2021 Dino Bollinger, ETH Zürich, Information Security Group
+# Copyright (C) 2021-2022 Dino Bollinger
+# Created as part of a master thesis at ETH Zürich, Information Security Group
 # Licensed under BSD 3-Clause License, see included LICENSE file
 """
 Cookie-Consent Category Scraper
 -----------------------------------
 Sequentially scrapes websites that use consent management platforms to obtain category labels for cookies.
-Will also output crawl statistics and a list of URLs where the crawling failed. This can be reused as input for subsequent runs.
+Will also output crawl statistics and a list of URLs where the crawling failed.
+This can be reused as input for subsequent runs.
 
 Does not retrieve the cookies themselves.
 
