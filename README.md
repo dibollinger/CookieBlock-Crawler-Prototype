@@ -10,42 +10,42 @@
 * [Repository Contents](#repository-contents)
 * [Credits](#credits)
 * [License](#license)
-    
+
 
 ## Introduction
-
-CookieBlock is a browser extension developed by researchers at ETH Zürich, 
-which automatically enforces GDPR cookie consent preferences of the user without 
-having to rely on the website to respect the user's privacy. The extension is 
-available for all major browsers. For more information and a link to add-on stores, 
-see the following repository: 
-
-https://github.com/dibollinger/CookieBlock
-
-To classify cookies, CookieBlock uses a gradient-boosted tree classifier. To 
-train this classifier, it is necessary to retrieve a ground truth of category labels 
-for the training samples. This is the task of the tool in this repository. It is a 
-prototype implementation of a crawler that attempts to retrieve cookie labels by scraping 
-data from Consent Management Platforms (CMPs).
 
 This repository is a predecessor of the OpenWPM-based crawler implementation found at:
 
 https://github.com/dibollinger/CookieBlock-Consent-Crawler
 
-It is released here separately under the BSD 3-clause license such that the relevant
-crawling logic can potentially be reused without having to bother with the GPL license.
+It retrieves cookie information from a set of Consent Management Providers, most importantly
+the purpose information of the cookie. This is used both for training a classifier, and to
+detect potential violations of the GDPR requirements.
 
-## Description
+The crawler is released here separately under the BSD 3-clause license, such that the relevant
+crawler logic can be used without the GPL.
 
-Due to the GDPR, websites that offer their services to countries in the EU 
-are required to request consent from visitors when the website attempts to 
+## About CookieBlock
+
+CookieBlock is a browser extension developed by researchers at ETH Zürich,
+which automatically enforces GDPR cookie consent preferences of the user
+without needing to rely on the website to respect the user's choices.
+
+More information can be found on the official website:
+
+https://karelkubicek.github.io/post/cookieblock
+
+## Background Information
+
+Due to the GDPR, websites that offer their services to countries in the EU
+are required to request consent from visitors when the website attempts to
 store cookies on the visitor's browser. This is commonly accomplished by
-websites using plugins offered by Consent Management Platforms (CMPs).
+websites using plugins offered by Consent Management Providers (CMPs).
 
-These plugins usually offer consent toggles for the visitor, and sometimes 
-display detailed information of the purpose of each cookie present on the website. 
+These plugins usually offer consent toggles for the visitor, and sometimes
+display detailed information of the purpose of each cookie present on the website.
 This crawler specifically targets CMP implementations that display such information,
-for the purpose of gathering a dataset of cookie labels and purposes.
+for the purpose of gathering a dataset of cookie purposes and other details.
 
 Using a list of input domains, the label crawler scrapes domains in expectation
 that they use specific Consent Management Platform plugin to display cookie banners
@@ -55,40 +55,34 @@ to then retrieve the externally hosted cookie label information.
 
 Each cookie is assigned to one of the following purpose classes:
 
-* __Strictly Necessary Cookies__: Cookies that are required for the website to function 
-    properly. These require no consent from the visitor and usually cannot be rejected, 
-    but are still declared inside privacy policies and consent management popups.
-* __Functional Cookies__: Cookies that provide additional services or improve the user 
-    experience, but are not strictly necessarily for the website to function. This 
-    includes cookies such as website style settings, user preferences, etc. 
-* __Performance/Analytical Cookies__: These are cookies that gather anonymized data 
-    from the user in order to report statistics of the website usage or website 
-    performance to the host. This data should be used to improve the site and the 
-    browsing experience for the visitors, but are not to be used for advertising 
-    or data sale purposes.
-* __Advertising/Tracking__: This category encompasses all cookies that are used 
-    for advertising and tracking purposes. Often this also involves the collection
-    of sensitive personal data, which may be sold to other interested parties. 
-    This is generally the category of cookies where the loss of privacy is the largest
-    concern. Depending on what data is being gathered, these cookies can identify a 
-    visitor's habits, interests, interests both leisurly and political, as well as 
-    name and identity, geographical location and social standing.
-* __Uncategorized__: Some CMPs leave cookies uncategorized. This category catches
-    all such declarations.
-* __Unknown__: Some categories cannot be easily be assigned to any of the above categories. 
-    This includes category labels such as "Information Storage and Access" or "Content Delivery" 
-    as these labels state little about how the cookie is intended to be used. In addition,
-    some CMP use language-specific declarations. This crawler only supports English 
-    language categories.
+* __Strictly Necessary Cookies__: Cookies that are required for the website to function
+    properly. These require no consent from the visitor and usually cannot be rejected,
+    but are still declared inside privacy policies and consent notices.
+* __Functional Cookies__: Cookies that provide additional services or improve the user
+    experience, but are not strictly necessarily for the website to function. For instance,
+    this includes cookies that control non-essential website style settings.
+* __Performance/Analytical Cookies__: These are cookies that gather anonymized data
+    from the user in order to report statistics of the website usage or website
+    performance to the host. This is used to improve the site and the browsing experience,
+    but are not to be used for advertising or data sale purposes.
+* __Advertising/Tracking__: Includes advertising, tracking and collection of sensitive
+    personal data, which may be sold to other interested parties. Usually the type
+    of cookie we want to block, as it has little benefit to the user.
+* __Uncategorized__: Some CMPs leave cookies uncategorized, which leaves ambiguous how
+    websites trat them when consent is given. This category catches all such declarations.
+* __Unknown__: Category names are variable, and some do not map to the aforementioned types.
+    This includes category labels such as "Information Storage and Access" or "Content Delivery".
+    In addition, some CMP use language-specific declarations. This crawler currently only supports
+    English language categories, but this can easily be expanded.
 
-If a cookie has multiple purposes assigned, the tool will generally assign the less 
-privacy-preserving class.
+If a cookie has multiple purposes assigned, the tool will assign the less privacy-preserving category.
+The categories are hereby graded from "Necessary" being the most, and "Advertising" the least privacy-friendly.
 
 In addition to the code, this repository also includes an informal analysis of how
-the CookieBot and OneTrust CMPs store the relevant cookie consent data, and what 
+the CookieBot and OneTrust CMPs store the relevant cookie consent data, and what
 information can be retrieved.
 
-The code in this repository is licensed under BSD 3-clause. 
+The code in this repository is licensed under BSD 3-clause.
 
 ## Installation
 
@@ -99,7 +93,7 @@ and execute the script `run_scraper.py` with the required arguments.
 
 * Tested with __Python 3.8__ and __3.9__
 * Required third-party libraries:
-   * requests (tested w/ version: 2.25.1) 
+   * requests (tested w/ version: 2.25.1)
    * beautifulsoup4 (4.9.3)
    * docopt (0.6.2)
    * selenium (3.141)
@@ -128,10 +122,10 @@ The second required argument determines the urls to crawl. These must be given i
 
 ## Outputs:
 
-For each crawl, the script produces a folder called `scrape_out_<timestamp>` which contains 
+For each crawl, the script produces a folder called `scrape_out_<timestamp>` which contains
 the collected CMP data and statistics on each type of error with detailed descriptions of each error.
 
-The consent data is stored in a SQLite database (called `cookiedat.sqlite` by default) which 
+The consent data is stored in a SQLite database (called `cookiedat.sqlite` by default) which
 contains the following table:
 
     TABLE consent_data
@@ -149,13 +143,13 @@ contains the following table:
 
 ## Repository Contents
     ./documentation    -- Documentation on Cookiebot, OneTrust and the crawler failure cases.
-    ./domain_sources   -- A list of example domains to crawl, sourced from BuiltWith.
+    ./domain_sources   -- A list of example domains to crawl, sourced from the website "BuiltWith".
     ./schema           -- Contains the database schema.
     ./src              -- Source files for the crawler.
     ./run_scraper.py   -- Command line script to run the crawler, with usage described above.
 
 ## Credits
-This repository was created as part of the master thesis __"Analyzing Cookies Compliance with the GDPR"__, 
+This repository was created as part of the master thesis __"Analyzing Cookies Compliance with the GDPR"__,
 which can be found at:
 
 https://www.research-collection.ethz.ch/handle/20.500.11850/477333
@@ -171,12 +165,13 @@ __Thesis supervision and co-authors:__
 * Information Security Group at ETH Zürich
 
 ---
-See also the following repositories for other components that were developed as part of the thesis:
+See also the following repositories for other related components:
 * [CookieBlock Browser Extension](https://github.com/dibollinger/CookieBlock)
 * [OpenWPM-based Consent Crawler](https://github.com/dibollinger/CookieBlock-Consent-Crawler)
 * [Cookie Consent Classifier](https://github.com/dibollinger/CookieBlock-Consent-Classifier)
 * [Violation Detection](https://github.com/dibollinger/CookieBlock-Other-Scripts)
 * [Collected Data](https://doi.org/10.5281/zenodo.5838646)
+
 
 ## License
 
