@@ -1,7 +1,8 @@
 # Cookie Consent Label Webcrawler - Prototype
 
 * [Introduction](#introduction)
-* [Description](#description)
+* [About CookieBlock](#about-cookieblock)
+* [Background Information](#background-information)
 * [Installation](#installation)
     * [Requirements](#requirements)
     * [Usage](#usage)
