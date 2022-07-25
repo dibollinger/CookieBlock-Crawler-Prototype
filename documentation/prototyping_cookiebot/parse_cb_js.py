@@ -1,4 +1,4 @@
-# Author: Dino Bollinger
+# Copyright (C) 2021-2022 Dino Bollinger, ETH Zürich, Information Security Group
 # Licensed under BSD 3-Clause License, see included LICENSE file
 """Parse the cookiebot cc.js file.
 

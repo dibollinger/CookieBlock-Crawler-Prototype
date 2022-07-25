@@ -1,4 +1,4 @@
--- Copyright (C) 2021 Dino Bollinger, ETH Zürich, Information Security Group
+-- Copyright (C) 2021-2022 Dino Bollinger, ETH Zürich, Information Security Group
 -- Licensed under BSD 3-Clause License, see included LICENSE file
 CREATE TABLE IF NOT EXISTS consent_data (
    id INTEGER PRIMARY KEY AUTOINCREMENT,    -- cookie consent table entries name and domain pair are not necessarily unique

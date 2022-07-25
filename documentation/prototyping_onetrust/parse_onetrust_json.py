@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Dino Bollinger, ETH Zürich, Information Security Group
+# Copyright (C) 2021-2022 Dino Bollinger, ETH Zürich, Information Security Group
 # Licensed under BSD 3-Clause License, see included LICENSE file
 """
 Parse the OneTrust javascript/json document, variant 1 or variant 2.
