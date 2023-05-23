@@ -1,4 +1,4 @@
-requests~=2.25.1
+requests>=2.31.0
 beautifulsoup4~=4.9.3
 docopt~=0.6.2
 selenium~=3.141.0
